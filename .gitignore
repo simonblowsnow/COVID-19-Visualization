@@ -2,7 +2,7 @@
 .pydevproject
 .pyc
 /.settings
-/logs
+/logs/*
 .DS_Store
 node_modules
 /dist
