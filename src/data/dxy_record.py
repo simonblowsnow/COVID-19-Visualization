@@ -4,8 +4,8 @@ Created on 2020年1月30日
 '''
 
 import sys
-from idlelib.iomenu import encoding
 sys.path.append('..')
+sys.path.append('../..')
 import json
 import time
 from src.libs.log import L
@@ -97,7 +97,9 @@ def get_province():
     idx = 0
     for p in SP:
         idx += 1
-        if idx <= 0: continue
+        if idx <= 31: continue
+        print(p)
+        
         purl = url + parse.quote(names.get(p['name'], p['name']))
         rst = request_url(purl)
         rst = json.loads(rst, encoding = "utf8")

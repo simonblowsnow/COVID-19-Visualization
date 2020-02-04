@@ -60,6 +60,9 @@ Utils.login = function (username, password, callback) {
   });
 };
 
+// 地图区域名称映射表
+// {'china': {'510000': ''}, '510000': {}}
+Utils.Names = {};
 Utils.formatRegion = function (mapName, data) {
   let mapData = echarts.getMap(mapName);
   if (!mapData) return;
@@ -68,17 +71,22 @@ Utils.formatRegion = function (mapName, data) {
     a[b.id.toString()] = b.properties.name;
     return a;
   }, {});
-  
-  console.log(names);
-  // data.forEach();
+  // 缓存地图区域名称映射表
+  Utils.Names[mapName] = names;
 
-  console.log(mapData);
-  console.log(data);
-  
+  // console.log(names);
+  return data.map(d => ({
+    name: names[d[0]], value: d[1], code: d[0], tags: d.slice(2)
+  }));
 };
 
+Utils.draw = function (chart, id) {
+  let myChart = echarts.init(document.getElementById(id));
+  myChart.setOption(chart.option);
+  return myChart;
+};
 
-Utils.FULL_LOG = 360.0;
-Utils.FULL_LAT = 310.0;
+Utils.Colors = ['#F55253', '#FF961E', '#66666c', '#178B50'];
+
 
 export {Utils};

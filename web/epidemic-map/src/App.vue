@@ -51,5 +51,8 @@ html, body {
     color: #333;
     line-height: 60px;
   }
+  .el-scrollbar__wrap{
+      overflow-x: hidden!important;
+  }
 
 </style>

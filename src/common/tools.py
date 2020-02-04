@@ -10,10 +10,10 @@ sys.path.append('..')
 from libs.log import L
 from urllib import request, parse
 from http import cookiejar
-from selenium import webdriver
-from pyquery import PyQuery as pq
+# from selenium import webdriver
+# from pyquery import PyQuery as pq
 from src.config import Config as C
-import requests
+# import requests
 
 
 def get_cookie(url):

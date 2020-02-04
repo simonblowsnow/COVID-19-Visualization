@@ -28,7 +28,12 @@
                 <div id="ecChina" class="chart1"></div>
             </el-col>
             <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                <div id="ecProvince" class="chart1"></div>
+                <div class="chart1" style="height: 500px">
+                    <el-scrollbar style="height:100%">
+                        <div id="ecBar" style="height: 900px"></div>
+                    </el-scrollbar>
+                </div>
+<!--            ecProvince-->
             </el-col>
         </el-row>
     </div>
@@ -39,7 +44,8 @@
 <script>
 import {Utils} from "../js/utils";
 import {API} from "../js/server";
-import chart1 from "../js/chartChina";
+import chart1 from "../js/mapChina";
+import chart2 from "../js/barChina";
 
 export default {
   name: 'Home',
@@ -49,44 +55,46 @@ export default {
   data(){
       return{
         sums: [
-            {name: 'confirmed', text: '确诊', color: '#F55253', sum: 0, add: 0},
-            {name: 'suspected', text: '疑似', color: '#FF961E', sum: 0, add: 0},
-            {name: 'die', text: '死亡', color: '#66666c', sum: 0, add: 0},
-            {name: 'ok', text: '治愈', color: '#178B50', sum: 0, add: 0}
+            {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 0, add: 0},
+            {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 0, add: 0},
+            {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 0, add: 0},
+            {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 0, add: 0}
         ],
-        charts: [chart1]
+        charts: [chart1, chart2]
       }
   },
   mounted () {
       this.init();
-      this.loadChart(this.charts[0]);
+      this.loadMap(this.charts[0]);
   },
   methods: {
       init () {
           // alert("init");
 
       },
+      // 请求全国各省汇总数据
       loadDataChina (chart) {
+        // let $this = this;
         Utils.ajaxData(API.GetDataChina, {type: 0}, function (rst) {
             console.log(rst);
-            Utils.formatRegion(chart.name, rst.data);
-            
-            Utils.draw(chart, "ecChina");
-            
+            chart.initData(rst.data, "ecChina");
+            let names = Utils.Names[chart.name];
+            chart2.initData(rst.data, "ecBar", names);
         });
       },
-      loadChart (chart) {
+      // 加载地图类数据，先请求地图轮廓文件
+      loadMap (chart) {
         let $this = this;
         Utils.ajaxData(API.GetMap, {id: chart.name}, function (rst) {
             let geojson = rst.data;
             $this.$echarts.registerMap(chart.name, geojson);
-            console.log(geojson);
             $this.loadDataChina(chart);
-
         });
-          
-          console.log(chart);
-      }
+      },
+      // 暂时无用
+      // func (chart, data) {
+      //
+      // }
   }
 }
 </script>
@@ -112,4 +120,6 @@ a {
   .chart1{
       min-height: 500px;
   }
+
+
 </style>

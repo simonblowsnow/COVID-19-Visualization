@@ -1,7 +1,10 @@
 #coding: utf8
 
-import src.libs.platform_version
+import sys
+sys.path.append('..')
+
 import os
+import src.libs.platform_version
 import json
 from flask import Flask, request, Response, current_app, g, render_template, redirect, make_response
 from flask_cors import CORS
@@ -17,8 +20,8 @@ app = Flask(__name__, static_url_path='')
 CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = 'AreUOK'
 app.config['TOKEN_EXPIRATION'] = 86400
-basedir = os.path.abspath(os.path.dirname(__file__)) + "/static/upload/"
-
+BASE_DIR = os.path.abspath(os.path.dirname(__file__)) + "/static/upload/"
+FILE_PATH = os.path.dirname(__file__) + "\\"
 
 
 
@@ -33,7 +36,8 @@ def test(r):
     if status=='': return ErrorResponseJson("请求的参数有误！")
     return NormalResponseJson(request, {'status': status}) 
 
-def getDataChina():
+@app.route('/getDataChina')
+def get_data_china():
     R = request.form if request.method=='POST' else request.args
     type_ = R.get('type', '')
     data = DC.getDataChina(type_)
@@ -43,7 +47,7 @@ def getDataChina():
 def get_map():
     R = request.form if request.method=='POST' else request.args
     name = R.get('id', '')
-    path = "data/geojson/{}.json".format(name)
+    path = FILE_PATH + "/data/geojson/{}.json".format(name)
     if not os.path.exists(path):
         return ErrorResponseJson("地图文件不存在")
     
