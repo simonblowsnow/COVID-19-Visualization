@@ -86,6 +86,14 @@ Utils.draw = function (chart, id) {
   return myChart;
 };
 
+Utils.getDevice = function () {
+  let w = document.documentElement.offsetWidth || document.body.offsetWidth;
+  if (w < 768) return 'xs'; 
+  return (w < 992) ? 'sm' : (w < 1200 ? 'md' : 'lg');
+}
+
+
+
 Utils.Colors = ['#F55253', '#FF961E', '#66666c', '#178B50'];
 
 

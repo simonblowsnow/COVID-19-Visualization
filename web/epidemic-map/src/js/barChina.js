@@ -13,14 +13,13 @@ let option = {
     },
     grid: [
         {
-            left: '0%',
-            width: 100,
+            left: 90,
             top: '38',
             bottom: '3%',
-            containLabel: true
+            // containLabel: true
         },
         {
-            left: 100,
+            left: 40,
             width: '65%',
             top: '2%',
             bottom: '3%',
@@ -28,7 +27,7 @@ let option = {
         },
         {
             right: '2%',
-            width: '23%',
+            width: '25%',
             top: '2%',
             bottom: '3%',
             containLabel: true
@@ -41,14 +40,12 @@ let option = {
         },
         {
             type: 'value',
-            // max: 20000,
             show: false,
             position: 'top',
             gridIndex: 1
         },
         {
             type: 'value',
-            // max: 20000,
             show: false,
             position: 'top',
             gridIndex: 2

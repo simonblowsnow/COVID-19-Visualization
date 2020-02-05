@@ -8,9 +8,9 @@
         <el-row :gutter="20">
             <el-col :span="6" v-for="item in sums" :key="item.name">
                 <div class="grid-content ">
-                    <div class="sum_numb" :style="{color: item.color, fontSize: '28px', marginBottom: '8px'}">{{item.sum}}</div>
-                    <div class="sum_numb" style="color: #333333, font-size: 22px">{{item.text}}病例</div>
-                    <div class="sum_numb" style="font-size: 18px; color: #999999; margin-top: 8px">
+                    <div class="sum_numb" :style="{color: item.color, fontSize: '20px', marginBottom: '8px'}">{{item.sum}}</div>
+                    <div class="sum_numb" style="color: #333333; font-size: 14px">{{item.text}}病例</div>
+                    <div class="sum_numb" style="font-size: 13px; color: #999999; margin-top: 8px">
                         <label style="font-weight:200">昨日 </label>
                         <label :style="{color: item.color}">{{item.add}}</label>
                     </div>
@@ -25,7 +25,7 @@
         </div>
         <el-row :gutter="10">
             <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                <div id="ecChina" class="chart1"></div>
+                <div id="ecChina" class="chart1" :style="{height: mapHeight}"></div>
             </el-col>
             <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                 <div class="chart1" style="height: 500px">
@@ -60,7 +60,8 @@ export default {
             {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 0, add: 0},
             {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 0, add: 0}
         ],
-        charts: [chart1, chart2]
+        charts: [chart1, chart2],
+        mapHeight: (Utils.getDevice() === 'xs') ? "300px" : "500px"
       }
   },
   mounted () {
@@ -118,7 +119,8 @@ a {
       font-weight: 700;
   }
   .chart1{
-      min-height: 500px;
+      min-height: 320px;
+      margin-bottom: 20px;
   }
 
 
