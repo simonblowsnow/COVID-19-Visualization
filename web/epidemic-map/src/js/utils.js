@@ -66,18 +66,23 @@ Utils.Names = {};
 Utils.formatRegion = function (mapName, data) {
   let mapData = echarts.getMap(mapName);
   if (!mapData) return;
-
-  let names = mapData.geoJson.features.reduce((a, b) => {
-    a[b.id.toString()] = b.properties.name;
-    return a;
-  }, {});
-  // 缓存地图区域名称映射表
-  Utils.Names[mapName] = names;
+  let names = Utils.Names[mapName];
 
   // console.log(names);
   return data.map(d => ({
     name: names[d[0]], value: d[1], code: d[0], tags: d.slice(2)
   }));
+};
+
+Utils.registerMap = function (mapName, geoJson) {
+  geoJson = JSON.parse(geoJson);
+  echarts.registerMap(mapName, geoJson);
+  
+  // 缓存地图区域名称映射表
+  Utils.Names[mapName] = geoJson.features.reduce((a, b) => {
+      a[b.id.toString()] = b.properties.name;
+      return a;
+  }, {});
 };
 
 Utils.draw = function (chart, id) {

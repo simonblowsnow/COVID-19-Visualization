@@ -75,7 +75,7 @@ let option = {
     }]
 }
 
-let chart1 = {
+let chart = {
     name: "china",
     option: option,
     initData: null,
@@ -83,8 +83,8 @@ let chart1 = {
 }
 
 // 需在地图注册后调用，注册地图时应使用name为名称
-chart1.initData = function (srcData, id) {
-    let data = Utils.formatRegion(chart1.name, srcData);
+chart.initData = function (srcData, id) {
+    let data = Utils.formatRegion(chart.name, srcData);
     if (data.length === 0) return;
     data.sort((a, b) => b.value - a.value);
     // 颜色渲染最大值，second * 1.25
@@ -92,8 +92,8 @@ chart1.initData = function (srcData, id) {
     console.log(maxColorValue);
     option.visualMap.max = maxColorValue;
     option.series[0].data = data;
-    Utils.draw(chart1, id);
+    chart.instance = Utils.draw(chart, id);
 };
 
-
-export default chart1;
+let chartMap = chart;
+export default chartMap;

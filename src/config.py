@@ -11,7 +11,7 @@ class Mysql():
     POOL_SIZE = 3
 
     HOST = "106.54.48.46"
-    PASSWORD = "simonblowsnow"
+    PASSWORD = ""
     
 class Redis():
     HOST = "127.0.0.1"

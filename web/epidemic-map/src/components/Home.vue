@@ -23,17 +23,20 @@
             <span>卡片名称</span>
             <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
         </div>
-        <el-row :gutter="10">
+
+        <!-- 全国 -->
+        <el-row :gutter="5" v-for="(c, i) in ids" v-show="showIndex==0" :key="i">
+            <!-- 地图 -->
             <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                <div id="ecChina" class="chart1" :style="{height: mapHeight}"></div>
+                <div :id="c[0]" class="chart" :style="{height: mapHeight}"></div>
             </el-col>
+            <!-- 柱状图，可能太长，使用滚动条 -->
             <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                <div class="chart1" style="height: 500px">
+                <div class="chart" style="height: 500px">
                     <el-scrollbar style="height:100%">
-                        <div id="ecBar" style="height: 900px"></div>
+                        <div :id="c[1]" style="height: 900px"></div>
                     </el-scrollbar>
                 </div>
-<!--            ecProvince-->
             </el-col>
         </el-row>
     </div>
@@ -44,7 +47,7 @@
 <script>
 import {Utils} from "../js/utils";
 import {API} from "../js/server";
-import chart1 from "../js/mapChina";
+import chartMap from "../js/mapChina";
 import chart2 from "../js/barChina";
 
 export default {
@@ -60,38 +63,55 @@ export default {
             {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 0, add: 0},
             {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 0, add: 0}
         ],
-        charts: [chart1, chart2],
+        showIndex: 0,
+        ids: [['ecChina', 'ecBar1'], ['ecProvince', 'ecBar2']],
+        charts: [chartMap, chart2],
         mapHeight: (Utils.getDevice() === 'xs') ? "300px" : "500px"
       }
   },
   mounted () {
       this.init();
-      this.loadMap(this.charts[0]);
+      this.loadMap("china");
   },
   methods: {
       init () {
           // alert("init");
 
       },
-      // 请求全国各省汇总数据
-      loadDataChina (chart) {
-        // let $this = this;
-        Utils.ajaxData(API.GetDataChina, {type: 0}, function (rst) {
-            console.log(rst);
-            chart.initData(rst.data, "ecChina");
-            let names = Utils.Names[chart.name];
-            chart2.initData(rst.data, "ecBar", names);
-        });
-      },
       // 加载地图类数据，先请求地图轮廓文件
-      loadMap (chart) {
+      // param: mapName - 地图名称（echarts注册时使用，以行政区域代码为准，中国使用'china'）
+      loadMap (mapName, level) {
         let $this = this;
-        Utils.ajaxData(API.GetMap, {id: chart.name}, function (rst) {
-            let geojson = rst.data;
-            $this.$echarts.registerMap(chart.name, geojson);
-            $this.loadDataChina(chart);
+        if (mapName in Utils.Names) return $this.loadData(mapName, level);
+
+        // 已注册的地图会有名称映射信息存于Utils.Names，未注册的地图先请求地图文件
+        Utils.ajaxData(API.GetMap, {id: mapName}, function (rst) {
+            Utils.registerMap(mapName, rst.data);
+            $this.loadData(mapName, level);
         });
       },
+      // 请求汇总数据
+      // params: code - 行政区域编码（全国除外，为'china'）
+      loadData (mapName, level) {
+        let $this = this;
+        if (!level) level = 0;
+        Utils.ajaxData(API.GetDataDetails, {'level': level, 'name': mapName}, function (rst) {
+            console.log(rst);
+            // 绘图容器ID
+            let divs = $this.ids[level];
+            chartMap.initData(rst.data, divs[0]);
+            debugger
+            chartMap.instance.on('click', function (d) {
+                let code = d.data.code;
+                console.log(code);
+                $this.loadMap(code, level + 1);
+            })
+            let names = Utils.Names[mapName];
+            chart2.initData(rst.data, divs[1], names);
+        });
+      },
+
+
       // 暂时无用
       // func (chart, data) {
       //
@@ -118,7 +138,7 @@ a {
       height: 20px;
       font-weight: 700;
   }
-  .chart1{
+  .chart{
       min-height: 320px;
       margin-bottom: 20px;
   }
