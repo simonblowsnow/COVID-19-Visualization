@@ -20,8 +20,9 @@
     </el-card>
     <div style="padding: 10px">
         <div class="clearfix" style="height: 40px; text-align: left">
-            <span>卡片名称</span>
-            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+            <span>数据来源 · 各地区卫健委官网</span>
+            <el-button style="float: right; padding: 3px 0" type="text">时间序列回放</el-button>
+            <div style="font-size: 12px; color: #f00">注：点击地图行政区域查看辖区地图</div>
         </div>
 
         <!-- 全国 -->
@@ -58,10 +59,10 @@ export default {
   data(){
       return{
         sums: [
-            {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 0, add: 0},
-            {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 0, add: 0},
-            {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 0, add: 0},
-            {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 0, add: 0}
+            {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 24447, add: "+84"},
+            {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 23260 , add: "待更新"},
+            {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 493 , add: "+3"},
+            {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 979, add: "+87"}
         ],
         showIndex: 0,
         ids: [['ecChina', 'ecBar1'], ['ecProvince', 'ecBar2']],

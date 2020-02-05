@@ -1,7 +1,8 @@
 
 
 In Development
-
+初步效果如下：
+![image](https://github.com/simonblowsnow/2019-ncov-vis/tree/master/web/epidemic-map/image/demo.png)
 
 专业可视分析技术与思维倾情打造，敬请期待！
 
