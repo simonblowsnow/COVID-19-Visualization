@@ -46,10 +46,10 @@ def get_data_china():
 @app.route('/getDataDetails')
 def get_data_details():
     R = request.form if request.method=='POST' else request.args
-    level = R.get('level', '')
+    level = int(R.get('level', 1))
     code = R.get('name', '')
     
-    data = DC.getDataChina(code)
+    data = DC.getDataChina(level, code)
     return NormalResponseJson(request, data)
 
 @app.route('/getMap')

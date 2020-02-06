@@ -21,14 +21,14 @@ let option = {
         {
             left: 40,
             width: '65%',
-            top: '2%',
+            top: '19',
             bottom: '3%',
             containLabel: true
         },
         {
             right: '2%',
             width: '25%',
-            top: '2%',
+            top: '19',
             bottom: '3%',
             containLabel: true
         },
@@ -188,6 +188,7 @@ chart.initData = function (srcData, id, names) {
         return {
             name: legend[i],
             type: 'bar',
+            barWidth: 20,
             stack: i < 1 ? false : true,
             xAxisIndex: i < 1 ? 1 : 2,
             yAxisIndex: i < 1 ? 1 : 2,
@@ -210,7 +211,8 @@ chart.initData = function (srcData, id, names) {
         };
     });
 
-    Utils.draw(chart, id);
+    let myChart = Utils.draw(chart, id);
+    myChart.dispatchAction({ type: 'legendUnSelect', name: "疑似" })
 };
 
 let chart2 = chart;

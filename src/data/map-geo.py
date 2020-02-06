@@ -4,6 +4,7 @@ Created on 2020年1月29日
 '''
 import sys
 sys.path.append('..')
+sys.path.append('../..')
 
 import os
 import json
@@ -39,6 +40,19 @@ def import_region():
             param = (item['name'], item['adcode'], levels[item['level']])
             lines.append([sql, param])
     db.Transaction(lines)
+
+def import_region_special():
+    db = Database()
+    lines = []
+    levels = {'province': 1, 'city': 2, 'district': 3}
+    for key in ["110000", "500000", "120000", "310000"]:
+        with open("geojson/" + key + ".json", encoding='utf8') as load_f:
+            dt = json.load(load_f)
+            for item in dt["features"]:
+                sql = "insert into region (name, code, level, parent) values (%s, %s, %s, %s)"
+                param = (item['properties']['name'], item['id'], 2, key)
+                lines.append([sql, param])
+    db.Transaction(lines)
             
     
 def set_region_parent():
@@ -62,6 +76,7 @@ def set_region_parent():
 if __name__ == '__main__':
 #     load_json("china")
 #     import_region()
+    import_region_special()
 #     create_config()
-    set_region_parent()
+#     set_region_parent()
     pass

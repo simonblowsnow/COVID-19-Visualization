@@ -35,7 +35,7 @@
             <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                 <div class="chart" style="height: 500px">
                     <el-scrollbar style="height:100%">
-                        <div :id="c[1]" style="height: 900px"></div>
+                        <div :id="c[1]" style="height:900px"></div>
                     </el-scrollbar>
                 </div>
             </el-col>
@@ -95,13 +95,14 @@ export default {
       // params: code - 行政区域编码（全国除外，为'china'）
       loadData (mapName, level) {
         let $this = this;
-        if (!level) level = 0;
+        if (!level) level = 1;
         Utils.ajaxData(API.GetDataDetails, {'level': level, 'name': mapName}, function (rst) {
             console.log(rst);
             // 绘图容器ID
-            let divs = $this.ids[level];
-            chartMap.initData(rst.data, divs[0]);
-            debugger
+            let divs = $this.ids[level - 1];
+            document.getElementById(divs[1]).style.height = (26 * rst.data.length + 20) + "px";
+            chartMap.initData(rst.data, divs[0], mapName);
+            // debugger
             chartMap.instance.on('click', function (d) {
                 let code = d.data.code;
                 console.log(code);
