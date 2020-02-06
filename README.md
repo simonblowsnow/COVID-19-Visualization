@@ -1,5 +1,7 @@
 
-# ncovr: Read and process nCoV data 新型冠状病毒数据获取、清洗、可视化、分析
+# 2019新型冠状病毒疫情数据获取、清洗、可视化、分析
+
+针对此次武汉新型冠状病毒(2019-nCov)数据变化情况，做可视分析(Visualization Analysis)，旨在呈现并还原疫情发展情况。
 
 ## 项目特点
 
@@ -22,9 +24,7 @@
 TODO：时间轴动画播放
 
 
-## 当前进度
-
-初步效果：
+## 初步效果
 
 全国地图
 
@@ -38,5 +38,6 @@ TODO：时间轴动画播放
 ## 项目结构
 
 1.前端源码：web目录下（VUE、ElementUI、ECharts、Maptalks、D3js）
+
 2.后端源码：src目录下（PYTHON3、Flask、Mysql）
 
