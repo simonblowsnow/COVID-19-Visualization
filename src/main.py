@@ -49,7 +49,7 @@ def get_data_details():
     level = int(R.get('level', 1))
     code = R.get('name', '')
     
-    data = DC.getDataChina(level, code)
+    data = DC.get_data_latest(level, code)
     return NormalResponseJson(request, data)
 
 @app.route('/getMap')

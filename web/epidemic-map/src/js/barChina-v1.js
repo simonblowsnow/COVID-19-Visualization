@@ -157,52 +157,9 @@ let option = {
     ]
 };
 
-let legend = ["确诊", "疑似", "死亡", "治愈"];
-let superOption = {
-    baseOption: {
-        timeline: {
-            data: ["2016", "2017"],
-            axisType: "category",
-            autoPlay: true,
-            playInterval: 5000,
-            left: "10%",
-            right: "10%",
-            bottom: "0%",
-            width: "80%",
-            symbolSize: 10,
-            checkpointStyle: {
-                borderColor: "#777",
-                borderWidth: 2
-            },
-            controlStyle: {
-                showNextBtn: true,
-                showPrevBtn: true,
-                normal: {
-                    color: "#ff8800",
-                    borderColor: "#ff8800"
-                },
-                emphasis: {
-                    color: "#aaa",
-                    borderColor: "#aaa"
-                }
-            },
-            
-        },
-        legend: {show: true, data: legend},
-        tooltip: option.tooltip,
-        grid: option.grid,
-        xAxis: option.xAxis,
-        yAxis: option.yAxis,
-        series: option.series,
-        animationDurationUpdate: 2000,
-        animationEasingUpdate: "quinticInOut"
-    },
-    options: []
-};
-
 let chart = {
     name: "barChina",
-    option: superOption,
+    option: option,
     initData: null,
     instance: null
 };
@@ -216,57 +173,45 @@ Params:
     柱状图分项使用地图区域名称简称，该名称来自于地图文件，使用行政区域代码对应关联，
     代码-名称映射表在地图数据转换时生成，并缓存，故柱状图绘制顺序应晚于对应地图绘制。
 */
-function getOption (srcData, names) {
-    debugger
-    let dt = [[], [], [], []];
-    srcData.sort((a, b) => { return b[1] - a[1]}).forEach(d => {
-        dt[0].push(d[1]);
-        dt[1].push(d[3]);
-        dt[2].push(d[4]);
-        dt[3].push(d[5]);
-    });
-    let nums = [0, 1, 2];
-    let _option = {
-        title: {text: "月日"},
-        yAxis: nums.map(() => {
-            return {"data": srcData.map(d => names[d[0]] || d[2])};
-        }),
-        series: legend.map((d, i) => {
-            return {
-                name: legend[i],
-                type: 'bar',
-                barWidth: 20,
-                stack: i < 1 ? false : true,
-                xAxisIndex: i < 1 ? 1 : 2,
-                yAxisIndex: i < 1 ? 1 : 2,
-                itemStyle:{
-                    normal: {
-                        barBorderRadius: [2, 2, 2, 2],
-                        color: Utils.Colors[i],
-                        shadowBlur: [0, 0, 0, 10],
-                        shadowColor: Utils.Colors[i],
-                    }
-                },
-                label: {
-                    normal: {
-                        show: i < 1 || i == 3,
-                        distance: 5,
-                        position: 'right' // insideRight
-                    }
-                },
-                data: dt[i]
-            };
-        })
-    }
-    return _option;
-}
-
 chart.initData = function (srcData, id, names) {
-    superOption.options = [getOption(srcData, names), getOption(srcData, names)];
+    let legend = ["确诊", "疑似", "死亡", "治愈"];
+    let dts = [[], [], [], []];
+    srcData.sort((a, b) => { return b[1] - a[1]}).forEach(d => {
+        dts[0].push(d[1]);
+        dts[1].push(d[3]);
+        dts[2].push(d[4]);
+        dts[3].push(d[5]);
+    });
+    for (let i = 0; i < 3; i++) option['yAxis'][i]['data'] = srcData.map(d => names[d[0]] || d[2]);
+    option['legend']['data'] = legend;
+    option['series'] = legend.map((d, i) => {
+        return {
+            name: legend[i],
+            type: 'bar',
+            barWidth: 20,
+            stack: i < 1 ? false : true,
+            xAxisIndex: i < 1 ? 1 : 2,
+            yAxisIndex: i < 1 ? 1 : 2,
+            itemStyle:{
+                normal: {
+                    barBorderRadius: [2, 2, 2, 2],
+                    color: Utils.Colors[i],
+                    shadowBlur: [0, 0, 0, 10],
+                    shadowColor: Utils.Colors[i],
+                }
+            },
+            label: {
+                normal: {
+                    show: i < 1 || i == 3,
+                    distance: 5,
+                    position: 'right' // insideRight
+                }
+            },
+            data: dts[i]
+        };
+    });
 
-    console.log(superOption);
     let myChart = Utils.draw(chart, id);
-
     myChart.dispatchAction({ type: 'legendUnSelect', name: "疑似" })
 };
 

@@ -1,6 +1,7 @@
 .project
 .pydevproject
 .pyc
+/__pycache__
 /.settings
 /logs/*
 .DS_Store
