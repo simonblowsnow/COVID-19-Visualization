@@ -21,7 +21,9 @@
 
 2.完成省级、市级地图、条形图数据展示和下钻交互。
 
-TODO：时间轴动画播放
+3.完成时间轴动画播放
+
+TODO：界面整合优化及统一交互逻辑，开发全国省市混合地图数据展示等
 
 
 ## 初步效果
@@ -44,12 +46,29 @@ TODO：时间轴动画播放
 
 1.前端源码：web目录下（VUE、ElementUI、ECharts、Maptalks、D3js）
 
-	开发部署：参考 web/epidemic-map/README.md
+	开发部署：
+		
+		cd web/epidemic-map
+		
+		npm install
+		
+		npm run serve
+		
+		效果：http://localhost:8080/
+		
+	具体参考 web/epidemic-map/README.md
 	
-	开发效果：http://localhost:8080/
+	
 
 2.后端源码：src目录下（PYTHON3、Flask、Mysql）
+
 	配置文件：src/config.py	
+	
+	启动服务：
+		start.bat - On Windows
+		
+		./start.sh - On Linux
+		
 
 3.数据库文件：src/db/epidemic.sql
 
