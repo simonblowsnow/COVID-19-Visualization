@@ -32,12 +32,33 @@ TODO：时间轴动画播放
 
 省级地图
 
-![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/henan.png)
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo4.png)
+
+时间序列
+
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo3.png)
+
 
 
 ## 项目结构
 
 1.前端源码：web目录下（VUE、ElementUI、ECharts、Maptalks、D3js）
 
-2.后端源码：src目录下（PYTHON3、Flask、Mysql）
+	开发部署：参考 web/epidemic-map/README.md
+	
+	开发效果：http://localhost:8080/
 
+2.后端源码：src目录下（PYTHON3、Flask、Mysql）
+	配置文件：src/config.py	
+
+3.数据库文件：src/db/epidemic.sql
+
+4.数据：
+
+	目前使用API：https://lab.isaaclin.cn/nCoV
+	
+	数据请求：src/data/dxy_record.py
+	
+	数据清洗：地区标准化 - region_recognition.py
+	
+	TODO: 数据定时增量更新

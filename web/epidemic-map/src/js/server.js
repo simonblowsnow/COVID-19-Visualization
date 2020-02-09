@@ -3,6 +3,7 @@ const API = {
   "Login": "webLogin",
   "GetMap": "getMap",
   "GetDataDetails": "getDataDetails",
+  "GetTimeData": "getTimeData",
   "GetDataChina": "getDataChina"
 };
 

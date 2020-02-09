@@ -85,16 +85,22 @@ Utils.registerMap = function (mapName, geoJson) {
   }, {});
 };
 
-Utils.draw = function (chart, id) {
+Utils.drawGraph = function (option, id) {
   let myChart = echarts.init(document.getElementById(id));
-  myChart.setOption(chart.option);
+  myChart.setOption(option);
   return myChart;
 };
+
+Utils.draw = function (chart, id) {
+  return Utils.drawGraph(chart.option, id);
+};
+
+
 
 Utils.getDevice = function () {
   let w = document.documentElement.offsetWidth || document.body.offsetWidth;
   if (w < 768) return 'xs'; 
-  return (w < 992) ? 'sm' : (w < 1200 ? 'md' : 'lg');
+  return (w < 1064) ? 'sm' : (w < 1200 ? 'md' : 'lg'); // 992
 }
 
 

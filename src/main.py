@@ -52,6 +52,16 @@ def get_data_details():
     data = DC.get_data_latest(level, code)
     return NormalResponseJson(request, data)
 
+@app.route('/getTimeData')
+def get_time_data():
+    R = request.form if request.method=='POST' else request.args
+    level = int(R.get('level', 1))
+    code = R.get('name', '86')
+    if code == 'china' or code == '': code = '86'
+    
+    data = DC.get_time_data(level, int(code))
+    return NormalResponseJson(request, data)
+
 @app.route('/getMap')
 def get_map():
     R = request.form if request.method=='POST' else request.args

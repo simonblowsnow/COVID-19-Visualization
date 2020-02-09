@@ -13,6 +13,7 @@ class Mysql():
     HOST = "106.54.48.46"
     PASSWORD = ""
     
+'''暂时未使用'''    
 class Redis():
     HOST = "127.0.0.1"
     HOST = "localhost"
@@ -23,15 +24,12 @@ class Redis():
 
 class Web():        
     PORT = 9400
-
-class System():
-    PRE_IMAGE = "/api"
     
     
 class Config():
     mysql = Mysql
     redis = Redis
     web = Web
-    system = System
+    '''爬虫所需，暂时未使用'''
     js_path = "C:/opt/IDE/phantomjs-2.1.1-windows/bin/phantomjs.exe"
     

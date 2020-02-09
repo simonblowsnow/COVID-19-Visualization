@@ -18,10 +18,10 @@
             </el-col>
         </el-row>
     </el-card>
-    <div style="padding: 10px">
+    <div>
         <div class="clearfix" style="height: 40px; text-align: left">
             <span>数据来源 · 各地区卫健委官网</span>
-            <el-button style="float: right; padding: 3px 0" type="text">时间序列回放</el-button>
+            <el-button style="float: right; padding: 3px 0" type="text"></el-button>
             <div style="font-size: 12px; color: #f00">注：点击地图行政区域查看辖区地图</div>
         </div>
 
@@ -65,7 +65,7 @@ export default {
             {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 979, add: "+87"}
         ],
         showIndex: 0,
-        ids: [['ecChina', 'ecBar1'], ['ecProvince', 'ecBar2']],
+        ids: [['ecChina', 'ecBar1'], ['ecProvince', 'ecBar2'], ['ecChinaTime', 'ecBarTime1'], ['ecProvinceTime', 'ecBarTime2']],
         charts: [chartMap, chart2],
         mapHeight: (Utils.getDevice() === 'xs') ? "300px" : "500px"
       }
@@ -93,26 +93,35 @@ export default {
       },
       // 请求汇总数据
       // params: code - 行政区域编码（全国除外，为'china'）
-      loadData (mapName, level) {
+      //    level: 数据和地图的行政级别，不同级别的视图容器也不同
+      //    allTime: 是否为所有时间序列数据
+      loadData (mapName, level, allTime) {
         let $this = this;
         if (!level) level = 1;
-        Utils.ajaxData(API.GetDataDetails, {'level': level, 'name': mapName}, function (rst) {
+        allTime = true;
+        let key = allTime ? API.GetTimeData : API.GetDataDetails;
+        Utils.ajaxData(key, {'level': level, 'name': mapName}, function (rst) {
             console.log(rst);
-            // 绘图容器ID
             let divs = $this.ids[level - 1];
-            document.getElementById(divs[1]).style.height = (26 * rst.data.length + 20) + "px";
-            chartMap.initData(rst.data, divs[0], mapName);
-            // debugger
+            // 绘图容器ID，动态调整尺寸
+            let latestData = rst.data;
+            if (allTime) {
+                let tms = Object.keys(rst.data);
+                latestData = rst.data[tms[tms.length - 1]];   
+            }
+            document.getElementById(divs[1]).style.height = (26 * latestData.length + 20) + "px";
+            
+            debugger
+            chartMap.initData(rst.data, divs[0], mapName, allTime);
             chartMap.instance.on('click', function (d) {
+                if (d.seriesType !== 'map') return;
                 let code = d.data.code;
-                console.log(code);
                 $this.loadMap(code, level + 1);
             })
             let names = Utils.Names[mapName];
-            chart2.initData(rst.data, divs[1], names);
+            chart2.initData(rst.data, divs[1], names, allTime);
         });
       },
-
 
       // 暂时无用
       // func (chart, data) {

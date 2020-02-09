@@ -9,28 +9,26 @@ let option = {
     },
     legend: {
         show: true,
-        right: 10,
-        top: 50,
-        data: ["确诊", "疑似", "死亡", "治愈"]
+        data: ['L1', 'L2']
     },
     grid: [
         {
             left: 90,
-            top: '88',
+            top: '38',
             bottom: '3%',
             // containLabel: true
         },
         {
-            left: 93,
-            width: '55%',
-            top: '88',
+            left: 40,
+            width: '65%',
+            top: '19',
             bottom: '3%',
-            containLabel: false
+            containLabel: true
         },
         {
-            right: '20',
+            right: '2%',
             width: '25%',
-            top: '68',
+            top: '19',
             bottom: '3%',
             containLabel: true
         },
@@ -87,7 +85,7 @@ let option = {
                     }
                 },
                 formatter: function (params, i) {
-                    return '{' + (i < 3 ? 'a' : 'b') + '|' + (i + 1) + '}' + '  ' + params.substr(0, 4);
+                    return '{' + (i < 3 ? 'a' : 'b') + '|' + (i + 1) + '}' + '  ' + params
                 }
             }
         }, 
@@ -112,43 +110,66 @@ let option = {
     ],
     series: [
         {
-            name: '确诊',
+            name: 'L1',
             type: 'bar',
             barWidth: 20,
             xAxisIndex: 1,
             yAxisIndex: 1,
+            itemStyle:{
+                normal: {
+                    color: '#F55253',
+                    barBorderRadius: [20, 20, 20, 20],
+                    shadowBlur: 20,
+                    shadowColor: 'rgba(40, 40, 40, 0.5)'
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
             data: [320, 302, 301, 334, 390, 330, 320]
         },
         {
-            name: '疑似',
+            name: 'L2',
             type: 'bar',
             stack: true,
             barWidth: 20,
             xAxisIndex: 2,
             yAxisIndex: 2,
+            itemStyle:{
+                normal: {
+                    color: '#F55253',
+                    barBorderRadius: [20, 20, 20, 20],
+                    shadowBlur: 20,
+                    shadowColor: 'rgba(40, 40, 40, 0.5)'
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'insideRight'
+                }
+            },
             data: [200, 302, 301, 334, 390, 330, 320]
         }
     ]
 };
 
 let legend = ["确诊", "疑似", "死亡", "治愈"];
-// 全局变量，重新加载时需重新初始化
-let maxValues = [0, 0, 0, 0];
 let superOption = {
     baseOption: {
         timeline: {
             data: ["2016", "2017"],
             axisType: "category",
             autoPlay: true,
-            playInterval: 1500,
-            left: "0",
-            right: "1%",
-            top: "0%",
-            width: "99%",
+            playInterval: 5000,
+            left: "10%",
+            right: "10%",
+            bottom: "0%",
+            width: "80%",
             symbolSize: 10,
-            label: {
-                formatter: function (d) { return d.substr(5); }
-            },
             checkpointStyle: {
                 borderColor: "#777",
                 borderWidth: 2
@@ -164,15 +185,16 @@ let superOption = {
                     color: "#aaa",
                     borderColor: "#aaa"
                 }
-            }
+            },
+            
         },
-        legend: option.legend,
+        legend: {show: true, data: legend},
         tooltip: option.tooltip,
         grid: option.grid,
         xAxis: option.xAxis,
         yAxis: option.yAxis,
         series: option.series,
-        animationDurationUpdate: 1500,
+        animationDurationUpdate: 2000,
         animationEasingUpdate: "quinticInOut"
     },
     options: []
@@ -183,10 +205,8 @@ let chart = {
     option: option,
     superOption: superOption,
     initData: null,
-    instance: null,
-    useMaxValue: true
+    instance: null
 };
-
 
 /*
 Params:
@@ -197,79 +217,57 @@ Params:
     柱状图分项使用地图区域名称简称，该名称来自于地图文件，使用行政区域代码对应关联，
     代码-名称映射表在地图数据转换时生成，并缓存，故柱状图绘制顺序应晚于对应地图绘制。
 */
-function getOption (srcData, names, _option) {
+function getOption (srcData, names) {
+    debugger
     let dt = [[], [], [], []];
     srcData.sort((a, b) => { return b[1] - a[1]}).forEach(d => {
-        // 图例对应数据索引位置
-        [1, 3, 4, 5].forEach((idx, i) => {
-            dt[i].push(d[idx]);
-            if (d[idx] > maxValues[i]) maxValues[i] = d[idx];
-        });
+        dt[0].push(d[1]);
+        dt[1].push(d[3]);
+        dt[2].push(d[4]);
+        dt[3].push(d[5]);
     });
-    /// 左-地区名称，中-图1，右-图2
-    for (let i = 0; i < 3; i++) {
-        _option['yAxis'][i]['data'] = srcData.map(d => names[d[0]] || d[2]);
+    let nums = [0, 1, 2];
+    let _option = {
+        title: {text: "月日"},
+        yAxis: nums.map(() => {
+            return {"data": srcData.map(d => names[d[0]] || d[2])};
+        }),
+        series: legend.map((d, i) => {
+            return {
+                name: legend[i],
+                type: 'bar',
+                barWidth: 20,
+                stack: i < 1 ? false : true,
+                xAxisIndex: i < 1 ? 1 : 2,
+                yAxisIndex: i < 1 ? 1 : 2,
+                itemStyle:{
+                    normal: {
+                        barBorderRadius: [2, 2, 2, 2],
+                        color: Utils.Colors[i],
+                        shadowBlur: [0, 0, 0, 10],
+                        shadowColor: Utils.Colors[i],
+                    }
+                },
+                label: {
+                    normal: {
+                        show: i < 1 || i == 3,
+                        distance: 5,
+                        position: 'right' // insideRight
+                    }
+                },
+                data: dt[i]
+            };
+        })
     }
-    _option['series'] = legend.map((d, i) => {
-        return {
-            name: legend[i],
-            type: 'bar',
-            barWidth: 20,
-            stack: i < 1 ? false : true,
-            xAxisIndex: i < 1 ? 1 : 2,
-            yAxisIndex: i < 1 ? 1 : 2,
-            itemStyle:{
-                normal: {
-                    barBorderRadius: [2, 2, 2, 2],
-                    color: Utils.Colors[i],
-                    shadowBlur: [0, 0, 0, 10],
-                    shadowColor: Utils.Colors[i],
-                }
-            },
-            label: {
-                normal: {
-                    show: i < 1 || i == 3,
-                    distance: 5,
-                    position: 'right' // insideRight
-                }
-            },
-            data: dt[i]
-        };
-    });
-
     return _option;
 }
 
-// 针对事件序列数据，数据上升一个维度
-// param:   dts : {'2020-02-01': []}
-function getOptions (dts, names) {
-    // 理论上讲tms是有序的，若不是则应在此处排序
-    let tms = Object.keys(dts);
-    superOption.baseOption.timeline.data = tms;
-    superOption.options = tms.map(k => {
-        let _option = { title: {text: ''}, yAxis: [{data: []}, {data: []}, {data: []}] }
-        return getOption(dts[k], names, _option);
-    });
-    return superOption;
-}
+chart.initData = function (srcData, id, names) {
+    debugger
+    superOption.options = [getOption(srcData, names), getOption(srcData, names)];
 
-chart.initData = function (srcData, id, names, allTime) {
-    let _option = option;
-    _option['legend']['data'] = legend;
-    maxValues = [0, 0, 0, 0];
-    if (!allTime) {
-        _option = getOption(srcData, names, _option);
-    } else {
-        _option = getOptions(srcData, names);
-    }
-    // 数据尺度同一使用全局最大值为上限
-    if (chart.useMaxValue) {
-        option.xAxis[1]['max'] = maxValues[0];
-        option.xAxis[2]['max'] = maxValues[1] + maxValues[2] + maxValues[3];
-    }
-    console.log(option);
     console.log(superOption);
-    let myChart = Utils.drawGraph(_option, id);
+    let myChart = Utils.draw(chart, id);
 
     myChart.dispatchAction({ type: 'legendUnSelect', name: "疑似" })
 };
