@@ -3,7 +3,7 @@
 .pyc
 /__pycache__
 /.settings
-/logs/*
+logs/*
 .DS_Store
 node_modules
 /dist
