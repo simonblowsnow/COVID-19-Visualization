@@ -44,8 +44,10 @@ def translate(items, p, lines):
                 cline['sum_type'], cline['region_level'] = 1, 2
                 cline['region_name'], cline['region_parent'] = ct['cityName'], p['code']
                 cline['data_date'] = line['data_date']
-                cline['region_code'] = ct['locationId'] if 'locationId' in ct \
-                    else check_city(ct['cityName'], p['code'])
+                cline['region_code'] = ct.get('locationId', 0)
+                if int(cline['region_code']) < 2: 
+                    cline['region_code'] = check_city(ct['cityName'], p['code'])  
+
                 lines.append(cline)
         '''End If'''
     '''End For'''
@@ -72,7 +74,7 @@ def request_province_data():
     idx = 0
     for p in SP:
         idx += 1
-        if idx <= -1: continue
+        if idx <= 12: continue
         purl = url + parse.quote(names.get(p['name'], p['name']))
         rst = request_url(purl)
         rst = json.loads(rst, encoding = "utf8")
@@ -89,12 +91,12 @@ def request_province_data():
             comands.append([sql, params])
         db.Transaction(comands)
         print(idx, p)
-#         L.info("{} saved, the index: {}".format(p['name'], idx))
+        # L.info("{} saved, the index: {}".format(p['name'], idx))
         time.sleep(3)
 
         
 if __name__ == '__main__':
     pass
 #     get_all_data()
-#     request_province_data()
-    add_city_code()
+    request_province_data()
+#     add_city_code()

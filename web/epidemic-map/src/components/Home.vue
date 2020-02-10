@@ -18,30 +18,36 @@
             </el-col>
         </el-row>
     </el-card>
-    <div>
-        <div class="clearfix" style="height: 40px; text-align: left">
+    <div style="padding-top: 20px">
+        <el-tabs v-model="activeName" @tab-click="handleClickTab">
+            <el-tab-pane :label="c.label" :name="c.name" v-for="(c, i) in tabs" :key="i">
+                <el-row :gutter="5" v-if="activeName==c.name">
+                    <!-- 地图 -->
+                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                        <div :id="c.ids[0]" class="chart" :style="{height: mapHeight}"></div>
+                    </el-col>
+
+                    <!-- 柱状图，可能太长，使用滚动条 -->
+                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                        <div class="chart" style="height: 500px">
+                            <el-scrollbar style="height:100%">
+                                <div :id="c.ids[1]" style="height:900px"></div>
+                            </el-scrollbar>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-tab-pane>
+        </el-tabs>
+        
+        <!-- <div class="clearfix" style="height: 40px; text-align: left">
             <span>数据来源 · 各地区卫健委官网</span>
             <el-button style="float: right; padding: 3px 0" type="text"></el-button>
             <div style="font-size: 12px; color: #f00">注：点击地图行政区域查看辖区地图</div>
-        </div>
+        </div> -->
 
         <!-- 全国 -->
-        <el-row :gutter="5" v-for="(c, i) in ids" v-show="showIndex==0" :key="i">
-            <!-- 地图 -->
-            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                <div :id="c[0]" class="chart" :style="{height: mapHeight}"></div>
-            </el-col>
-            <!-- 柱状图，可能太长，使用滚动条 -->
-            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                <div class="chart" style="height: 500px">
-                    <el-scrollbar style="height:100%">
-                        <div :id="c[1]" style="height:900px"></div>
-                    </el-scrollbar>
-                </div>
-            </el-col>
-        </el-row>
+        
     </div>
-
   </div>
 </template>
 
@@ -52,81 +58,96 @@ import chartMap from "../js/mapChina";
 import chart2 from "../js/barChina";
 
 export default {
-  name: 'Home',
-  props: {
-    msg: String
-  },
-  data(){
-      return{
-        sums: [
-            {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 24447, add: "+84"},
-            {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 23260 , add: "待更新"},
-            {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 493 , add: "+3"},
-            {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 979, add: "+87"}
-        ],
-        showIndex: 0,
-        ids: [['ecChina', 'ecBar1'], ['ecProvince', 'ecBar2'], ['ecChinaTime', 'ecBarTime1'], ['ecProvinceTime', 'ecBarTime2']],
-        charts: [chartMap, chart2],
-        mapHeight: (Utils.getDevice() === 'xs') ? "300px" : "500px"
-      }
-  },
-  mounted () {
-      this.init();
-      this.loadMap("china");
-  },
-  methods: {
-      init () {
-          // alert("init");
+    name: 'Home',
+    props: {
+        msg: String
+    },
+    data(){
+        return{
+            sums: [
+                {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 24447, add: "+84"},
+                {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 23260 , add: "待更新"},
+                {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 493 , add: "+3"},
+                {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 979, add: "+87"}
+            ],
+            showIndex: 0,
+            tabs: [
+                {label: "全国实时疫情", name: 'china', ids: ['ecChina', 'ecBar1'], level: 1, allTime: 0}, 
+                {label: "全国疫情时间序列回放", name: 'provinceTime', ids: ['ecProvinceTime', 'ecBarTime2'], level: 1, allTime: 1}, 
+                {label: "省实时疫情", name: 'province', ids: ['ecProvince', 'ecBar2'], level: 2, allTime: 0},
+                {label: "省舆情回放", name: 'chinaTime', ids: ['ecChinaTime', 'ecBarTime1'], level: 2, allTime: 1}
+            ],
+            activeName: 'china',
+            charts: [chartMap, chart2],
+            currentProvince: "420000",
+            mapHeight: (Utils.getDevice() === 'xs') ? "300px" : "500px"
+        }
+    },
+    mounted () {
+        this.init();
+        this.loadMap("china");
+    },
+    methods: {
+        init () {
+            // alert("init");
+        },
+        // 加载地图类数据，先请求地图轮廓文件
+        // param: mapName - 地图名称（echarts注册时使用，以行政区域代码为准，中国使用'china'）
+        loadMap (mapName, level, allTime) {
+            let $this = this;
+            if (mapName in Utils.Names) return $this.loadData(mapName, level, allTime);
 
-      },
-      // 加载地图类数据，先请求地图轮廓文件
-      // param: mapName - 地图名称（echarts注册时使用，以行政区域代码为准，中国使用'china'）
-      loadMap (mapName, level) {
-        let $this = this;
-        if (mapName in Utils.Names) return $this.loadData(mapName, level);
-
-        // 已注册的地图会有名称映射信息存于Utils.Names，未注册的地图先请求地图文件
-        Utils.ajaxData(API.GetMap, {id: mapName}, function (rst) {
-            Utils.registerMap(mapName, rst.data);
-            $this.loadData(mapName, level);
-        });
-      },
-      // 请求汇总数据
-      // params: code - 行政区域编码（全国除外，为'china'）
-      //    level: 数据和地图的行政级别，不同级别的视图容器也不同
-      //    allTime: 是否为所有时间序列数据
-      loadData (mapName, level, allTime) {
-        let $this = this;
-        if (!level) level = 1;
-        allTime = true;
-        let key = allTime ? API.GetTimeData : API.GetDataDetails;
-        Utils.ajaxData(key, {'level': level, 'name': mapName}, function (rst) {
-            console.log(rst);
-            let divs = $this.ids[level - 1];
-            // 绘图容器ID，动态调整尺寸
-            let latestData = rst.data;
-            if (allTime) {
-                let tms = Object.keys(rst.data);
-                latestData = rst.data[tms[tms.length - 1]];   
-            }
-            document.getElementById(divs[1]).style.height = (26 * latestData.length + 20) + "px";
-            
+            // 已注册的地图会有名称映射信息存于Utils.Names，未注册的地图先请求地图文件
+            Utils.ajaxData(API.GetMap, {id: mapName}, function (rst) {
+                Utils.registerMap(mapName, rst.data);
+                $this.loadData(mapName, level, allTime);
+            });
+        },
+        /* 请求汇总数据
+        params: code - 行政区域编码（全国除外，为'china'）
+            level: 数据和地图的行政级别，不同级别的视图容器也不同
+            allTime: 是否为所有时间序列数据
+        */
+        loadData (mapName, level, allTime) {
+            let $this = this;
+            if (!level) level = 1;
+            if (!allTime) allTime = 0;
+            let key = allTime ? API.GetTimeData : API.GetDataDetails;
+            Utils.ajaxData(key, {'level': level, 'name': mapName}, function (rst) {
+                console.log(rst);
+                debugger
+                let divs = $this.tabs[allTime + level - (level > 1 ? 0 : 1)].ids;
+                // 绘图容器ID，动态调整尺寸
+                let latestData = rst.data;
+                if (allTime) {
+                    let tms = Object.keys(rst.data);
+                    latestData = rst.data[tms[tms.length - 1]];   
+                }
+                document.getElementById(divs[1]).style.height = (26 * latestData.length + 20) + "px";
+                
+                chartMap.initData(rst.data, divs[0], mapName, allTime);
+                chartMap.instance.on('click', function (d) {
+                    if (d.seriesType !== 'map') return;
+                    if (level == 2) {
+                        alert(level);
+                        return;
+                    }
+                    level++;
+                    let idx = allTime + level - (level > 1 ? 0 : 1);
+                    $this.activeName = $this.tabs[idx].name;
+                    $this.loadMap(d.data.code, level, allTime);
+                })
+                let names = Utils.Names[mapName];
+                chart2.initData(rst.data, divs[1], names, allTime);
+            });
+        },
+        handleClickTab: function (p) {
+            let tab = this.tabs[parseInt(p.index)];
+            let mapName = tab.level == 1 ? "china" : this.currentProvince;
+            console.log(this.activeName);
             debugger
-            chartMap.initData(rst.data, divs[0], mapName, allTime);
-            chartMap.instance.on('click', function (d) {
-                if (d.seriesType !== 'map') return;
-                let code = d.data.code;
-                $this.loadMap(code, level + 1);
-            })
-            let names = Utils.Names[mapName];
-            chart2.initData(rst.data, divs[1], names, allTime);
-        });
-      },
-
-      // 暂时无用
-      // func (chart, data) {
-      //
-      // }
+            this.loadMap(mapName, tab.level, tab.allTime);
+        }
   }
 }
 </script>

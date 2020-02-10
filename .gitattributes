@@ -1,0 +1,6 @@
+*.vue linguist-language=JavaScript;
+*.py linguist-language=JavaScript;
+*.c linguist-language=JavaScript;
+*.h linguist-language=JavaScript;
+*.xsl linguist-language=JavaScript;
+*.sql linguist-language=JavaScript;

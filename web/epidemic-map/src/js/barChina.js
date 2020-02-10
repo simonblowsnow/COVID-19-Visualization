@@ -1,4 +1,5 @@
 import {Utils} from "../js/utils";
+import getTimeline from "./timeline";
 
 // 因图例1数值相对较大，同一比例尺下其它图例容易被湮没，故图形分左右两部分分别呈现
 // 网格分三部分，1 - Y轴文字， 2 - 图形1， 3 - 图形2
@@ -7,6 +8,7 @@ let option = {
         trigger: 'axis',
         axisPointer : { type : 'shadow' }
     },
+    title: {text: '', top: 15, textStyle: {color: '#4197FD', fontSize: 16}},
     legend: {
         show: true,
         right: 10,
@@ -28,7 +30,7 @@ let option = {
             containLabel: false
         },
         {
-            right: '20',
+            right: '40',
             width: '25%',
             top: '68',
             bottom: '3%',
@@ -136,36 +138,7 @@ let legend = ["确诊", "疑似", "死亡", "治愈"];
 let maxValues = [0, 0, 0, 0];
 let superOption = {
     baseOption: {
-        timeline: {
-            data: ["2016", "2017"],
-            axisType: "category",
-            autoPlay: true,
-            playInterval: 1500,
-            left: "0",
-            right: "1%",
-            top: "0%",
-            width: "99%",
-            symbolSize: 10,
-            label: {
-                formatter: function (d) { return d.substr(5); }
-            },
-            checkpointStyle: {
-                borderColor: "#777",
-                borderWidth: 2
-            },
-            controlStyle: {
-                showNextBtn: true,
-                showPrevBtn: true,
-                normal: {
-                    color: "#ff8800",
-                    borderColor: "#ff8800"
-                },
-                emphasis: {
-                    color: "#aaa",
-                    borderColor: "#aaa"
-                }
-            }
-        },
+        timeline: getTimeline(),
         legend: option.legend,
         tooltip: option.tooltip,
         grid: option.grid,
@@ -199,17 +172,20 @@ Params:
 */
 function getOption (srcData, names, _option) {
     let dt = [[], [], [], []];
+    let sum0 = 0;   // 当日累计确诊总和
     srcData.sort((a, b) => { return b[1] - a[1]}).forEach(d => {
         // 图例对应数据索引位置
         [1, 3, 4, 5].forEach((idx, i) => {
             dt[i].push(d[idx]);
             if (d[idx] > maxValues[i]) maxValues[i] = d[idx];
+            if (i == 0) sum0 += d[idx];
         });
     });
     /// 左-地区名称，中-图1，右-图2
     for (let i = 0; i < 3; i++) {
         _option['yAxis'][i]['data'] = srcData.map(d => names[d[0]] || d[2]);
     }
+    _option.title.text = "全国累计确诊 " + sum0;
     _option['series'] = legend.map((d, i) => {
         return {
             name: legend[i],
@@ -221,8 +197,8 @@ function getOption (srcData, names, _option) {
             itemStyle:{
                 normal: {
                     barBorderRadius: [2, 2, 2, 2],
-                    color: Utils.Colors[i],
                     shadowBlur: [0, 0, 0, 10],
+                    color: Utils.Colors[i],
                     shadowColor: Utils.Colors[i],
                 }
             },
@@ -247,7 +223,9 @@ function getOptions (dts, names) {
     let tms = Object.keys(dts);
     superOption.baseOption.timeline.data = tms;
     superOption.options = tms.map(k => {
-        let _option = { title: {text: ''}, yAxis: [{data: []}, {data: []}, {data: []}] }
+        let _option = { title: {text: '', top: 55, textStyle: {color: '#bbb', fontSize: 16}}, 
+            yAxis: [{data: []}, {data: []}, {data: []}] 
+        }
         return getOption(dts[k], names, _option);
     });
     return superOption;
@@ -262,13 +240,12 @@ chart.initData = function (srcData, id, names, allTime) {
     } else {
         _option = getOptions(srcData, names);
     }
+
     // 数据尺度同一使用全局最大值为上限
     if (chart.useMaxValue) {
         option.xAxis[1]['max'] = maxValues[0];
-        option.xAxis[2]['max'] = maxValues[1] + maxValues[2] + maxValues[3];
+        option.xAxis[2]['max'] = maxValues[2] + maxValues[3]; // maxValues[1]
     }
-    console.log(option);
-    console.log(superOption);
     let myChart = Utils.drawGraph(_option, id);
 
     myChart.dispatchAction({ type: 'legendUnSelect', name: "疑似" })

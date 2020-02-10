@@ -1,6 +1,8 @@
 import {Utils} from "../js/utils";
+import getTimeline from "./timeline";
 
 let option = {
+    title: {text: '', top: 15, textStyle: {color: '#4197FD', fontSize: 16}},
     visualMap: {
         min: 0,
         // max: 1000,
@@ -81,35 +83,7 @@ let option = {
 let secondMaxValues = [];
 let superOption = {
     baseOption: {
-        timeline: {
-            axisType: "category",
-            autoPlay: true,
-            playInterval: 1500,
-            left: "0",
-            right: "1%",
-            top: "0%",
-            width: "99%",
-            symbolSize: 10,
-            label: {
-                formatter: function (d) { return d.substr(5); }
-            },
-            checkpointStyle: {
-                borderColor: "#777",
-                borderWidth: 2
-            },
-            controlStyle: {
-                showNextBtn: true,
-                showPrevBtn: true,
-                normal: {
-                    color: "#ff8800",
-                    borderColor: "#ff8800"
-                },
-                emphasis: {
-                    color: "#aaa",
-                    borderColor: "#aaa"
-                }
-            }
-        },
+        timeline: getTimeline(),
         visualMap: option.visualMap,
         series: option.series
     },
@@ -127,8 +101,13 @@ let chart = {
 
 function getOption (srcData, mapName, _option) {
     let data = Utils.formatRegion(mapName, srcData);
-    data.sort((a, b) => b.value - a.value);
-    secondMaxValues.push(data.length > 1 ? data[1].value : 10);
+    // [sum, max, secondMax]
+    let vs = data.reduce((a, b) => {
+        if (b.value > a[1]) a[1] = b.value;
+        return [a[0] + b.value, a[1], (b.value > a[2] && b.value < a[1]) ? b.value : a[2]];
+    }, [0, 10, 10]);
+    _option.title.text = "全国确诊：" + vs[0] + "，湖北：" + vs[1];
+    secondMaxValues.push(vs[2]);
     _option.series[0]['data'] = data;
     
     if (!chart.useMaxValue) _option['visualMap'] = {
@@ -144,8 +123,7 @@ function getOptions (dts, mapName) {
     let tms = Object.keys(dts);
     superOption.baseOption.timeline.data = tms;
     superOption.options = tms.map(k => {
-        console.log(k);
-        let _option = { title: {text: ''}, series: [{}]};
+        let _option = { title: {text: '', top: 55, textStyle: {color: '#bbb', fontSize: 16}}, series: [{}]};
         return getOption(dts[k], mapName, _option);
     });
     return superOption;
