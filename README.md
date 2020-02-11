@@ -3,12 +3,13 @@
 
 针对此次武汉新型冠状病毒(2019-nCov)数据变化情况，做可视分析(Visualization Analysis)，旨在呈现并还原疫情发展情况。
 
+数据支持： [BlankerL/DXY-2019-nCoV-Crawler](https://github.com/BlankerL/DXY-2019-nCoV-Crawler)  特别鸣谢！
+
 ## 可视化效果
 
 [新冠肺炎疫情 · 数据分析系统](http://ncov.myvis.cn)  
 	WuHan 2019-nCoV Data Visualization Analysis System		http://ncov.myvis.cn
 
-	
 
 ## 项目特点
 
@@ -30,7 +31,7 @@
 
 3.完成时间轴动画播放
 
-TODO：界面整合优化及统一交互逻辑，开发全国省市混合地图数据展示等
+TODO：开发各曲线图，开发全国省市混合地图数据展示等
 
 
 ## 初步效果
@@ -77,11 +78,9 @@ TODO：界面整合优化及统一交互逻辑，开发全国省市混合地图�
 
 4.数据：
 	
-	数据支持 [BlankerL/DXY-2019-nCoV-Crawler](https://github.com/BlankerL/DXY-2019-nCoV-Crawler)  
+	使用API：https://lab.isaaclin.cn/nCoV
 	
-	API：https://lab.isaaclin.cn/nCoV
-	
-	数据请求：src/data/dxy_record.py
+	数据更新：src/data/dxy_record.py
 	
 	数据清洗：地区标准化 - region_recognition.py
 	
