@@ -35,10 +35,6 @@ TODO：界面整合优化及统一交互逻辑，开发全国省市混合地图�
 
 ## 初步效果
 
-全国地图
-
-![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo.png)
-
 省级地图
 
 ![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo4.png)
@@ -80,8 +76,10 @@ TODO：界面整合优化及统一交互逻辑，开发全国省市混合地图�
 3.数据库文件：src/db/epidemic.sql
 
 4.数据：
-
-	目前使用API：https://lab.isaaclin.cn/nCoV
+	
+	数据支持 [BlankerL/DXY-2019-nCoV-Crawler](https://github.com/BlankerL/DXY-2019-nCoV-Crawler)  
+	
+	API：https://lab.isaaclin.cn/nCoV
 	
 	数据请求：src/data/dxy_record.py
 	
