@@ -4,6 +4,7 @@
 /__pycache__
 /.settings
 logs/*
+src/logs/*
 .DS_Store
 node_modules
 /dist

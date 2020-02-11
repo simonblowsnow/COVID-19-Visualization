@@ -3,6 +3,13 @@
 
 针对此次武汉新型冠状病毒(2019-nCov)数据变化情况，做可视分析(Visualization Analysis)，旨在呈现并还原疫情发展情况。
 
+## 可视化效果
+
+[新冠肺炎疫情 · 数据分析系统](http://ncov.myvis.cn)  
+	WuHan 2019-nCoV Data Visualization Analysis System		http://ncov.myvis.cn
+
+	
+
 ## 项目特点
 
 1. 支持常规省、市、县三级地图数据可视化，下钻交互。

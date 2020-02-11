@@ -3,7 +3,7 @@
     <div style="text-align: left">
         <div style="height: 40px; line-height: 40px">
             <label style="font-weight: 800; font-size: 18px">国内疫情</label>
-            <label style="float: right; color: #4197FD">数据更新时间： </label>
+            <label style="float: right; color: #4197FD">数据更新时间： {{updateTime}}</label>
         </div>
     </div>
     <!-- 总体数据汇总情况 -->
@@ -24,7 +24,7 @@
     <div style="padding-top: 10px">
         <el-tabs v-model="activeName" @tab-click="handleClickTab">
             <el-tab-pane :label="c.label" :name="c.name" v-for="(c, i) in tabs" :key="i">
-                <el-row :gutter="5" v-if="activeName==c.name">
+                <el-row :gutter="5" v-show="activeName==c.name">
                     <!-- 地图 -->
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                         <div :id="c.ids[0]" class="chart" :style="{height: mapHeight}"></div>
@@ -51,6 +51,8 @@
         <!-- 全国 -->
         
     </div>
+
+    <div style="height: 20px"></div>
   </div>
 </template>
 
@@ -68,11 +70,12 @@ export default {
     data(){
         return{
             sums: [
-                {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 24447, add: "+84"},
-                {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 23260 , add: "待更新"},
-                {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 493 , add: "+3"},
-                {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 979, add: "+87"}
+                {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 42744, add: "+2484"},
+                {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 21675 , add: "+3536"},
+                {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 1017 , add: "+108"},
+                {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 4202, add: "+716"}
             ],
+            updateTime: '2020.02.11 20:39',
             showIndex: 0,
             tabs: [
                 {label: "全国实时疫情", name: 'china', ids: ['ecChina', 'ecBar1'], level: 1, allTime: 0, data: null}, 
@@ -136,7 +139,9 @@ export default {
                 let tms = Object.keys(data);
                 latestData = data[tms[tms.length - 1]];   
             }
-            document.getElementById(divs[1]).style.height = (26 * latestData.length + 20) + "px";
+            let height = (26 * latestData.length + 20);
+            document.getElementById(divs[1]).style.height = (height < 350 ? 350 : height) + "px";
+            
             // 依次画两图
             chartMap.initData(data, divs[0], mapName, allTime);
             chartMap.instance.on('click', function (d) {
@@ -155,7 +160,6 @@ export default {
         handleClickTab: function (p) {
             let tab = this.tabs[parseInt(p.index)];
             let mapName = tab.level == 1 ? "china" : this.currentProvince;
-            console.log(this.activeName);
             this.loadMap(mapName, tab.level, tab.allTime);
         }
   }

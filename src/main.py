@@ -21,7 +21,7 @@ CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = 'AreUOK'
 app.config['TOKEN_EXPIRATION'] = 86400
 BASE_DIR = os.path.abspath(os.path.dirname(__file__)) + "/static/upload/"
-FILE_PATH = os.path.dirname(__file__) + "\\"
+FILE_PATH = os.path.dirname(__file__) + "/"
 
 
 

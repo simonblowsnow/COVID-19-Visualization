@@ -17,6 +17,7 @@
         <div style="font-size: 22px; margin-top: 5px; color: #ddd; font-family: 'Times New Roman', Times, serif">
           WuHan 2019-nCoV Data Visualization Analysis System
         </div>
+        <div style="font-size: 14px; color: #ddd">—— 开发中，敬请期待!</div>
       </div>
     </div>
       <!-- <el-header style="text-align: right; font-size: 12px">

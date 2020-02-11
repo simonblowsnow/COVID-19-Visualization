@@ -74,7 +74,7 @@ def request_province_data():
     idx = 0
     for p in SP:
         idx += 1
-        if idx <= 12: continue
+        if idx <= 23: continue
         purl = url + parse.quote(names.get(p['name'], p['name']))
         rst = request_url(purl)
         rst = json.loads(rst, encoding = "utf8")
