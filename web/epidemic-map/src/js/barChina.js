@@ -17,17 +17,18 @@ let option = {
     },
     grid: [
         {
-            left: 90,
+            left: -65,
             top: '88',
             bottom: '3%',
-            // containLabel: true
+            width: 100,
+            containLabel: true
         },
         {
-            left: 93,
-            width: '55%',
-            top: '88',
+            left: 45,
+            width: '58%',
+            top: '68',
             bottom: '3%',
-            containLabel: false
+            containLabel: true
         },
         {
             right: '40',
@@ -223,7 +224,7 @@ function getOptions (dts, names) {
     let tms = Object.keys(dts);
     superOption.baseOption.timeline.data = tms;
     superOption.options = tms.map(k => {
-        let _option = { title: {text: '', top: 55, textStyle: {color: '#bbb', fontSize: 16}}, 
+        let _option = { title: {text: '', top: 65, textStyle: {color: '#bbb', fontSize: 14}}, 
             yAxis: [{data: []}, {data: []}, {data: []}] 
         }
         return getOption(dts[k], names, _option);
@@ -240,7 +241,8 @@ chart.initData = function (srcData, id, names, allTime) {
     } else {
         _option = getOptions(srcData, names);
     }
-
+    // 优化小尺寸设备显示
+    if (Utils.getDevice() === 'xs') option.grid[1].width = "51%";
     // 数据尺度同一使用全局最大值为上限
     if (chart.useMaxValue) {
         option.xAxis[1]['max'] = maxValues[0];

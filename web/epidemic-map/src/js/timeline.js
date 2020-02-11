@@ -4,6 +4,7 @@ function getTimeline () {
         data: ["2016", "2017"],
         axisType: "category",
         autoPlay: true,
+        loop: true,
         playInterval: 1500,
         left: "0",
         right: "1%",

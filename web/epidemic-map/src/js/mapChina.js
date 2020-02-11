@@ -19,7 +19,7 @@ let option = {
         name: 'china',
         type: 'map',
         mapType: 'china',
-        roam: true,
+        roam: false,
         label: {
             emphasis: {
                 show: true,
@@ -126,6 +126,7 @@ function getOptions (dts, mapName) {
         let _option = { title: {text: '', top: 55, textStyle: {color: '#bbb', fontSize: 16}}, series: [{}]};
         return getOption(dts[k], mapName, _option);
     });
+    superOption.baseOption.timeline.autoPlay = false;
     return superOption;
 }
 

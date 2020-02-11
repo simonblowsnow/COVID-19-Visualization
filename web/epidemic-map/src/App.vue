@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <el-container style="height: 100%; border: 1px solid #eee">
-      <el-header style="text-align: right; font-size: 12px">
+      <!-- <el-header style="text-align: right; font-size: 12px">
         1
-      </el-header>
+      </el-header> -->
       <el-main>
         <Home msg="Welcome to Your Vue.js App"/>
 
       </el-main>
-      <el-footer>
+      <!-- <el-footer>
         3
-      </el-footer>
+      </el-footer> -->
     </el-container>
   </div>
 </template>
@@ -40,6 +40,7 @@ html, body {
   height: 100%;
 }
 
+  .el-main { padding: 20px 15px!important}
   .el-header {
     background-color: #B3C0D1;
     color: #333;
