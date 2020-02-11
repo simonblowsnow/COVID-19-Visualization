@@ -5,6 +5,7 @@ function getTimeline () {
         axisType: "category",
         autoPlay: true,
         loop: true,
+        currentIndex: 0,
         playInterval: 1500,
         left: "0",
         right: "1%",

@@ -2,7 +2,9 @@ import {Utils} from "../js/utils";
 import getTimeline from "./timeline";
 
 let option = {
-    title: {text: '', top: 15, textStyle: {color: '#4197FD', fontSize: 16}},
+    title: {text: '', top: 15, subtext: "点击各区块查看下级地图",
+        textStyle: {color: '#4197FD', fontSize: 16},
+    },
     visualMap: {
         min: 0,
         // max: 1000,
@@ -127,6 +129,7 @@ function getOptions (dts, mapName) {
         return getOption(dts[k], mapName, _option);
     });
     superOption.baseOption.timeline.autoPlay = false;
+    superOption.baseOption.timeline.currentIndex = tms.length - 1;
     return superOption;
 }
 

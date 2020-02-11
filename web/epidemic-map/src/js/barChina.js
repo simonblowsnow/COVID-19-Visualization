@@ -186,7 +186,7 @@ function getOption (srcData, names, _option) {
     for (let i = 0; i < 3; i++) {
         _option['yAxis'][i]['data'] = srcData.map(d => names[d[0]] || d[2]);
     }
-    _option.title.text = "全国累计确诊 " + sum0;
+    _option.title.text = "累计确诊 " + sum0;
     _option['series'] = legend.map((d, i) => {
         return {
             name: legend[i],
