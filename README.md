@@ -7,8 +7,8 @@
 
 ## 可视化效果
 
-[新冠肺炎疫情 · 数据分析系统](http://ncov.myvis.cn)  
-	WuHan 2019-nCoV Data Visualization Analysis System		http://ncov.myvis.cn
+[新冠肺炎疫情 · 数据分析系统](http://106.54.48.46:8002)  
+	WuHan 2019-nCoV Data Visualization Analysis System		http://106.54.48.46:8002
 
 
 ## 项目特点

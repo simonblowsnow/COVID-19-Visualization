@@ -1,4 +1,5 @@
 import {Utils} from "../js/utils";
+import getTimeline from "./timeline";
 
 // 因图例1数值相对较大，同一比例尺下其它图例容易被湮没，故图形分左右两部分分别呈现
 // 网格分三部分，1 - Y轴文字， 2 - 图形1， 3 - 图形2
@@ -7,28 +8,32 @@ let option = {
         trigger: 'axis',
         axisPointer : { type : 'shadow' }
     },
+    title: {text: '', top: 15, textStyle: {color: '#4197FD', fontSize: 16}},
     legend: {
         show: true,
-        data: ['L1', 'L2']
+        right: 10,
+        top: 50,
+        data: ["确诊", "疑似", "死亡", "治愈"]
     },
     grid: [
         {
-            left: 90,
-            top: '38',
+            left: -65,
+            top: '88',
             bottom: '3%',
-            // containLabel: true
+            width: 100,
+            containLabel: true
         },
         {
-            left: 40,
-            width: '65%',
-            top: '19',
+            left: 45,
+            width: '58%',
+            top: '68',
             bottom: '3%',
             containLabel: true
         },
         {
-            right: '2%',
+            right: '40',
             width: '25%',
-            top: '19',
+            top: '68',
             bottom: '3%',
             containLabel: true
         },
@@ -85,7 +90,7 @@ let option = {
                     }
                 },
                 formatter: function (params, i) {
-                    return '{' + (i < 3 ? 'a' : 'b') + '|' + (i + 1) + '}' + '  ' + params
+                    return '{' + (i < 3 ? 'a' : 'b') + '|' + (i + 1) + '}' + '  ' + params.substr(0, 4);
                 }
             }
         }, 
@@ -110,59 +115,52 @@ let option = {
     ],
     series: [
         {
-            name: 'L1',
+            name: '确诊',
             type: 'bar',
             barWidth: 20,
             xAxisIndex: 1,
             yAxisIndex: 1,
-            itemStyle:{
-                normal: {
-                    color: '#F55253',
-                    barBorderRadius: [20, 20, 20, 20],
-                    shadowBlur: 20,
-                    shadowColor: 'rgba(40, 40, 40, 0.5)'
-                }
-            },
-            label: {
-                normal: {
-                    show: true,
-                    position: 'insideRight'
-                }
-            },
             data: [320, 302, 301, 334, 390, 330, 320]
         },
         {
-            name: 'L2',
+            name: '疑似',
             type: 'bar',
             stack: true,
             barWidth: 20,
             xAxisIndex: 2,
             yAxisIndex: 2,
-            itemStyle:{
-                normal: {
-                    color: '#F55253',
-                    barBorderRadius: [20, 20, 20, 20],
-                    shadowBlur: 20,
-                    shadowColor: 'rgba(40, 40, 40, 0.5)'
-                }
-            },
-            label: {
-                normal: {
-                    show: true,
-                    position: 'insideRight'
-                }
-            },
             data: [200, 302, 301, 334, 390, 330, 320]
         }
     ]
 };
 
+let legend = ["确诊", "疑似", "死亡", "治愈"];
+// 全局变量，重新加载时需重新初始化
+let maxValues = [0, 0, 0, 0];
+let superOption = {
+    baseOption: {
+        timeline: getTimeline(),
+        legend: option.legend,
+        tooltip: option.tooltip,
+        grid: option.grid,
+        xAxis: option.xAxis,
+        yAxis: option.yAxis,
+        series: option.series,
+        animationDurationUpdate: 1500,
+        animationEasingUpdate: "quinticInOut"
+    },
+    options: []
+};
+
 let chart = {
     name: "barChina",
     option: option,
+    superOption: superOption,
     initData: null,
-    instance: null
+    instance: null,
+    useMaxValue: true
 };
+
 
 /*
 Params:
@@ -173,18 +171,23 @@ Params:
     柱状图分项使用地图区域名称简称，该名称来自于地图文件，使用行政区域代码对应关联，
     代码-名称映射表在地图数据转换时生成，并缓存，故柱状图绘制顺序应晚于对应地图绘制。
 */
-chart.initData = function (srcData, id, names) {
-    let legend = ["确诊", "疑似", "死亡", "治愈"];
-    let dts = [[], [], [], []];
+function getOption (srcData, names, _option) {
+    let dt = [[], [], [], []];
+    let sum0 = 0;   // 当日累计确诊总和
     srcData.sort((a, b) => { return b[1] - a[1]}).forEach(d => {
-        dts[0].push(d[1]);
-        dts[1].push(d[3]);
-        dts[2].push(d[4]);
-        dts[3].push(d[5]);
+        // 图例对应数据索引位置
+        [1, 3, 4, 5].forEach((idx, i) => {
+            dt[i].push(d[idx]);
+            if (d[idx] > maxValues[i]) maxValues[i] = d[idx];
+            if (i == 0) sum0 += d[idx];
+        });
     });
-    for (let i = 0; i < 3; i++) option['yAxis'][i]['data'] = srcData.map(d => names[d[0]] || d[2]);
-    option['legend']['data'] = legend;
-    option['series'] = legend.map((d, i) => {
+    /// 左-地区名称，中-图1，右-图2
+    for (let i = 0; i < 3; i++) {
+        _option['yAxis'][i]['data'] = srcData.map(d => names[d[0]] || d[2]);
+    }
+    _option.title.text = "累计确诊 " + sum0;
+    _option['series'] = legend.map((d, i) => {
         return {
             name: legend[i],
             type: 'bar',
@@ -195,8 +198,8 @@ chart.initData = function (srcData, id, names) {
             itemStyle:{
                 normal: {
                     barBorderRadius: [2, 2, 2, 2],
-                    color: Utils.Colors[i],
                     shadowBlur: [0, 0, 0, 10],
+                    color: Utils.Colors[i],
                     shadowColor: Utils.Colors[i],
                 }
             },
@@ -207,11 +210,46 @@ chart.initData = function (srcData, id, names) {
                     position: 'right' // insideRight
                 }
             },
-            data: dts[i]
+            data: dt[i]
         };
     });
 
-    let myChart = Utils.draw(chart, id);
+    return _option;
+}
+
+// 针对事件序列数据，数据上升一个维度
+// param:   dts : {'2020-02-01': []}
+function getOptions (dts, names) {
+    // 理论上讲tms是有序的，若不是则应在此处排序
+    let tms = Object.keys(dts);
+    superOption.baseOption.timeline.data = tms;
+    superOption.options = tms.map(k => {
+        let _option = { title: {text: '', top: 65, textStyle: {color: '#bbb', fontSize: 14}}, 
+            yAxis: [{data: []}, {data: []}, {data: []}] 
+        }
+        return getOption(dts[k], names, _option);
+    });
+    return superOption;
+}
+
+chart.initData = function (srcData, id, names, allTime) {
+    let _option = option;
+    _option['legend']['data'] = legend;
+    maxValues = [0, 0, 0, 0];
+    if (!allTime) {
+        _option = getOption(srcData, names, _option);
+    } else {
+        _option = getOptions(srcData, names);
+    }
+    // 优化小尺寸设备显示
+    if (Utils.getDevice() === 'xs') option.grid[1].width = "51%";
+    // 数据尺度同一使用全局最大值为上限
+    if (chart.useMaxValue) {
+        option.xAxis[1]['max'] = maxValues[0];
+        option.xAxis[2]['max'] = maxValues[2] + maxValues[3]; // maxValues[1]
+    }
+    let myChart = Utils.drawGraph(_option, id);
+
     myChart.dispatchAction({ type: 'legendUnSelect', name: "疑似" })
 };
 
