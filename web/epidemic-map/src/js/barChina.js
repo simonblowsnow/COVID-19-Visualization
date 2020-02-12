@@ -232,10 +232,21 @@ function getOptions (dts, names) {
     return superOption;
 }
 
+function autoSize (id, data, allTime) {
+    let latestData = data;
+    if (allTime) {
+        let tms = Object.keys(data);
+        latestData = data[tms[tms.length - 1]];   
+    }
+    let height = (26 * latestData.length + 20);
+    document.getElementById(id).style.height = (height < 350 ? 350 : height) + "px";
+}
+
 chart.initData = function (srcData, id, names, allTime) {
     let _option = option;
     _option['legend']['data'] = legend;
     maxValues = [0, 0, 0, 0];
+    // 是否为时间序列图
     if (!allTime) {
         _option = getOption(srcData, names, _option);
     } else {
@@ -248,10 +259,11 @@ chart.initData = function (srcData, id, names, allTime) {
         option.xAxis[1]['max'] = maxValues[0];
         option.xAxis[2]['max'] = maxValues[2] + maxValues[3]; // maxValues[1]
     }
+    autoSize(id, srcData, allTime);
     let myChart = Utils.drawGraph(_option, id);
 
     myChart.dispatchAction({ type: 'legendUnSelect', name: "疑似" })
 };
 
-let chart2 = chart;
-export default chart2;
+let chartBar = chart;
+export default chartBar;
