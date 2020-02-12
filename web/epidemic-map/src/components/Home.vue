@@ -24,7 +24,8 @@
     <div style="padding-top: 10px">
         <el-tabs v-model="activeName" @tab-click="handleClickTab">
             <el-tab-pane :label="c.label" :name="c.name" v-for="(c, i) in tabs" :key="i">
-                <el-row :gutter="5" v-show="activeName==c.name">
+
+                <el-row :gutter="5" v-show="activeName==c.name" v-if="i<4">
                     <!-- 地图 -->
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                         <div :id="c.ids[0]" class="chart" :style="{height: mapHeight}"></div>
@@ -38,6 +39,9 @@
                             </el-scrollbar>
                         </div>
                     </el-col>
+                </el-row>
+                <el-row v-else>
+                    Hello
                 </el-row>
             </el-tab-pane>
         </el-tabs>
@@ -81,7 +85,8 @@ export default {
                 {label: "全国实时疫情", name: 'china', ids: ['ecChina', 'ecBar1'], level: 1, allTime: 0, data: null}, 
                 {label: "时间序列回放", name: 'provinceTime', ids: ['ecProvinceTime', 'ecBarTime2'], level: 1, allTime: 1, data: null}, 
                 {label: "省实时疫情", name: 'province', ids: ['ecProvince', 'ecBar2'], level: 2, allTime: 0, data: null},
-                {label: "省舆情回放", name: 'chinaTime', ids: ['ecChinaTime', 'ecBarTime1'], level: 2, allTime: 1, data: null}
+                {label: "省舆情回放", name: 'chinaTime', ids: ['ecChinaTime', 'ecBarTime1'], level: 2, allTime: 1, data: null},
+                {label: "曲线分析", name: "lineChina"}
             ],
             activeName: 'china',
             charts: [chartMap, chart2],
@@ -150,6 +155,7 @@ export default {
                     alert(level);
                     return;
                 }
+                $this.currentProvince = d.data.code;
                 $this.activeName = $this.getTab(allTime, level).name;
                 $this.loadMap(d.data.code, level, allTime);
             })
