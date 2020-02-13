@@ -6,7 +6,7 @@ function getTimeline () {
         autoPlay: true,
         loop: true,
         currentIndex: 0,
-        playInterval: 1000,
+        playInterval: 1200,
         left: "0",
         right: "1%",
         top: "0%",

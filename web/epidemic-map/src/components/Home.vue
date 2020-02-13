@@ -88,19 +88,19 @@ export default {
                 { 
                     label: "全国实时疫情", name: 'china', ids: ['ecChina', 'ecBar1'], level: 1, 
                     allTime: 0, data: null, mapName: 'china'
-                }, 
+                },
                 {
-                    label: "时间序列回放", name: 'provinceTime', ids: ['ecProvinceTime', 'ecBarTime2'], 
-                    level: 1, allTime: 1, data: null, mapName: 'china'
-                }, 
+                    label: "时间序列回放", name: 'chinaTime', ids: ['ecChinaTime', 'ecBarTime1'], level: 1, 
+                    allTime: 1, data: null, mapName: "china"
+                },
                 {
                     label: "省实时疫情", name: 'province', ids: ['ecProvince', 'ecBar2'], level: 2, 
                     allTime: 0, data: null, mapName: "420000"
                 },
                 {
-                    label: "省舆情回放", name: 'chinaTime', ids: ['ecChinaTime', 'ecBarTime1'], level: 2, 
-                    allTime: 1, data: null, mapName: "420000"
-                },
+                    label: "省舆情回放", name: 'provinceTime', ids: ['ecProvinceTime', 'ecBarTime2'], 
+                    level: 2, allTime: 1, data: null, mapName: '420000'
+                }, 
                 {
                     label: "曲线分析", name: "lineChina", ids: ['ecLineChina'], level: 1, isLine: 1, 
                     allTime: 1, data: null, mapName: "china"
@@ -161,9 +161,10 @@ export default {
                 if (d.seriesType !== 'map') return;
                 if (level++ == 2) return alert(level);
                 
-                tab.mapName = d.data.code;
-                $this.activeName = tab.name;
-                $this.loadMap(d.data.code, level, allTime);
+                let cTab = $this.tabs[2 + allTime]; 
+                cTab.mapName = d.data.code;
+                $this.activeName = cTab.name;
+                $this.loadMap(cTab);
             })
             let names = Utils.Names[mapName];
             chartBar.initData(data, tab.ids[1], names, allTime);

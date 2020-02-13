@@ -2,6 +2,7 @@ import axios from 'axios';
 // import Qs from 'qs';
 import {API} from "./server"
 import echarts from 'echarts'
+import * as d3 from 'd3-interpolate';
 
 let Utils = {};
 
@@ -103,7 +104,26 @@ Utils.getDevice = function () {
   return (w < 1064) ? 'sm' : (w < 1200 ? 'md' : 'lg'); // 992
 }
 
+Utils.last = function (ary) {
+  return ary[ary.length - 1];
+}
 
+Utils.interpolateColor = function (colors, minValue, maxValue) {
+  if (maxValue == undefined) [maxValue, minValue] = [minValue, 0];
+  let [diff, len] = [maxValue - minValue, 1 / (colors.length - 1)]; 
+  let rngs = [];
+  for (let i = 0; i < colors.length - 1; i++) 
+    rngs.push(d3.interpolateLab(colors[i], colors[i + 1]));
+
+  this.compute = function (value) {
+    if (value >= maxValue) return rngs[rngs.length - 1](1);
+    let p = (value - minValue) / diff;
+    let idx = parseInt(p / len);
+    let p2 = (p - idx * len) / len;
+    let rng = rngs[idx];
+    return rng(p2);
+  }
+};
 
 Utils.Colors = ['#F55253', '#FF961E', '#66666c', '#178B50'];
 

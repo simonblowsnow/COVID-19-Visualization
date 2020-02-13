@@ -146,7 +146,7 @@ let superOption = {
         xAxis: option.xAxis,
         yAxis: option.yAxis,
         series: option.series,
-        animationDurationUpdate: 1000,
+        animationDurationUpdate: 1200,
         animationEasingUpdate: "quinticInOut"
     },
     options: []

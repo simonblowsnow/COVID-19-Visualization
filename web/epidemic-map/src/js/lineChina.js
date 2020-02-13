@@ -1,16 +1,15 @@
 import {Utils} from "../js/utils";
-import echarts from 'echarts';
 
 
 function getOption () {
     let option = {
         title: [{
             text: '',
+            subtext: '',
             left: 10,
             top: 0,
-            textStyle:{
-                fontSize:18,
-                fontWeight:'normal',
+            subtextStyle: {
+                color: "#F55253"
             },
         }],
         tooltip: {
@@ -28,7 +27,7 @@ function getOption () {
             }
         },
         legend: {
-            data: ['累计确诊', '新增确诊'],
+            data: ['累计确诊', '新增确诊', '累计治愈'],
             top: 0,
             right: '90'
         },
@@ -36,28 +35,28 @@ function getOption () {
             {
                 width:'85%',
                 top: 30,
-                height: 70
+                height: 85
             }
         ],
         xAxis: [{
             data: ["02-01", "02-02", "02-03"],
             axisLine: {
                 lineStyle: {
-                    color: '#666'
+                    color: '#999',
+                    width: 0.6
                 }
             },
             axisTick:{
                 show:true,
             },
             axisLabel:{
-                textStyle:{
-                    fontSize:16
-                }
+                // rotate: 30,
+                formatter: function (p) { return p.substr(5)}
             }
         }],
         yAxis: [
             {
-                name:'累计',
+                name: '',
                 axisLine: {
                     lineStyle: {
                         color: '#666',
@@ -77,7 +76,7 @@ function getOption () {
                 }
             },
             {
-                name:'新增',
+                name:'',
                 splitLine: {show: false},
                 axisLine: {
                     lineStyle: {
@@ -91,12 +90,11 @@ function getOption () {
             type: 'line',
             smooth: true,
             showAllSymbol: true,
-            symbol: 'circle', // emptyCircle
-            symbolSize: 8,
-            yAxisIndex: 1,
+            symbol: 'emptyCircle', // 
+            symbolSize: 5,
+            yAxisIndex: 0,
             itemStyle: {
-                    normal: {
-                    color:'#F02FC2'},
+                    normal: {color:'#F55253'},
             },
             data: [10, 20, 50]
         }, 
@@ -104,19 +102,27 @@ function getOption () {
             name: '新增确诊',
             type: 'bar',
             barWidth: 15,
+            yAxisIndex: 1,
             itemStyle: {
                 normal: {
                     barBorderRadius: 5,
-                    color: new echarts.graphic.LinearGradient(
-                        0, 0, 0, 1,
-                        [
-                            {offset: 0, color: '#956FD4'},
-                            {offset: 1, color: '#3EACE5'}
-                        ]
-                    )
+                    color: '#F55253'
                 }
             },
             data: [10, 8, 5]
+        },
+        {
+            name: '累计治愈',
+            type: 'line',
+            smooth: true,
+            showAllSymbol: true,
+            symbol: 'roundRect', // emptyCircle
+            symbolSize: 5,
+            yAxisIndex: 1,
+            itemStyle: {
+                    normal: {color:'#178B50'},
+            },
+            data: [10, 20, 50]
         }
        ]
     };    
@@ -124,7 +130,7 @@ function getOption () {
 }
 
 let option = getOption();
-
+let maxValues = [10, 10];
 let chart = {
     name: "lineChina",
     option: option,
@@ -146,32 +152,49 @@ function translate (srcData) {
     return rs;
 }
 
+function last (ary) {
+    return ary[ary.length - 1];
+}
+
 // 针对事件序列数据，数据上升一个维度
-// param:   dts : {'2020-02-01': []}
+// param:   dts : {'2020-02-01': [code, confirmed, name, suspected, die, ok, addConfirmed]}
 function getOptions (srcData) {
     let dts = translate(srcData);
     let codes = Object.keys(dts);
+    codes.sort((a, b) => last(dts[b].data)[1] - last(dts[a].data)[1] );
+    if (codes.length > 0) maxValues[0] = last(dts[codes[0]].data)[1]; 
+    if (codes.length > 1) maxValues[1] = last(dts[codes[1]].data)[1];
+    debugger
+    let ic = new Utils.interpolateColor(['#FFAA85', '#FF7B69', '#BF2121', '#7F1818'], maxValues[1] * 1.5);
+    
     [option.title, option.grid, option.xAxis, option.yAxis, option.series] = [[], [], [], [], []];
     codes.forEach((k, i) => {
+        if (i > 5) return;
         let opt = getOption();
         let [title, grid, xAxis, yAxis, series] = [opt.title[0], opt.grid[0], opt.xAxis[0], opt.yAxis, opt.series];
-        title.text = k;
+        title.text = dts[k].name;
         title.top = i * 120;
         grid.top = i * 120 + 30;
         xAxis.gridIndex = i;
         yAxis[0].gridIndex = yAxis[1].gridIndex = i;
-        series[0].xAxisIndex = series[1].xAxisIndex = i;
-        // xAxis.data = codes[k][];
-        // TODO:
+        series[0].xAxisIndex = series[1].xAxisIndex = series[2].xAxisIndex = i;
+        [series[0].yAxisIndex, series[1].yAxisIndex, series[2].yAxisIndex] = [i * 2, i * 2 + 1, i * 2 + 1];
         
-        [series[0].yAxisIndex, series[1].yAxisIndex] = [i * 2, i * 2 + 1];
+        let ds = dts[k].data.reduce((a, b, i) => {
+            [a[0][i], a[1][i], a[2][i], a[3][i]] = [b[0], b[1], b[6], b[5]];
+            return a;
+        }, [[], [], [], []]);
+        [xAxis.data, series[0].data, series[1].data, series[2].data] = ds;
+        let numb = ds[1][ds[1].length - 1]; 
+        title.subtext = "确诊：" + numb;
+        series[0].itemStyle.normal.color = series[1].itemStyle.normal.color = ic.compute(numb);
         option.title.push(title);
         option.grid.push(grid);
         option.xAxis.push(xAxis);
         option.yAxis.push(yAxis[0], yAxis[1]);
-        option.series.push(series[0], series[1]);
+        option.series.push(series[0], series[1], series[2]);
     });
-
+    
     return option;
 }
 
