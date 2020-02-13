@@ -8,6 +8,7 @@ src/logs/*
 .DS_Store
 node_modules
 /dist
+*.pyc
 
 # local env files
 .env.local
