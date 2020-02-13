@@ -19,7 +19,7 @@
 
 3. 全国省市混合热力图数据呈现，及时间序列变化趋势。(★★★★)
 
-4. 其它创新
+4. 交互式数据分析
 
 专业可视分析技术与思维倾情打造，敬请期待！
 
@@ -36,13 +36,13 @@ TODO：开发各曲线图，开发全国省市混合地图数据展示等
 
 ## 初步效果
 
-省级地图
+时间序列曲线
 
-![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo4.png)
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/line.png)
 
-时间序列
+时间序列播放
 
-![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo3.png)
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/time.png)
 
 
 

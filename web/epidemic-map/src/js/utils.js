@@ -93,10 +93,9 @@ Utils.drawGraph = function (option, id) {
 };
 
 Utils.draw = function (chart, id) {
-  return Utils.drawGraph(chart.option, id);
+  chart.instance = Utils.drawGraph(chart.option, id);
+  return chart.instance;
 };
-
-
 
 Utils.getDevice = function () {
   let w = document.documentElement.offsetWidth || document.body.offsetWidth;

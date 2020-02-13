@@ -41,7 +41,7 @@ def get_time_data(level = 1, code=86):
     whr = "" if level == 1 else " and region_parent={}".format(code)
     sql = '''select a.region_code, region_name, numb_confirmed, numb_suspected, numb_die, numb_ok, 
             a.data_date, DATE(tm) from patients a 
-        join (SELECT region_code, min(data_date) as tm FROM patients 
+        join (SELECT region_code, max(data_date) as tm FROM patients 
             where region_level={}'''.format(level) + whr + ''' 
             group by region_code, DATE(data_date)) b 
             on a.region_code=b.region_code and a.data_date=b.tm order by data_date'''
@@ -62,12 +62,13 @@ def get_time_data(level = 1, code=86):
             _yesterday = yesterday
             yesterday = date_
         '''新增计算 '''
-        add_c = confirmed - dts[_yesterday][code][1] if _yesterday else confirmed
+        '''TODO: 地域判别，code可能不是直属地区'''
+        add_c = confirmed - dts[_yesterday][code][1] if _yesterday and code > 0 else confirmed
         '''各地区缓存一份最新数据，用于数据填补''' 
         latest[code] = [code, confirmed, name, suspected, die, ok, add_c, str(tm)] 
         
         dts[date_][code] = latest[code]
-    data_fill(yesterday)
+    if yesterday: data_fill(yesterday)
  
     return dict((k, list(dts[k].values())) for k in dts)
 
@@ -85,7 +86,7 @@ if __name__ == '__main__':
 #         print(item)
 #     for item in get_data_latest(2, "500000"):
 #         print(item)
-    print(get_time_data())
+    print(get_time_data(2, 410000))
 #     for item in get_time_data():
 #         print(item)
 #     for item in get_time_data(2, "500000"):

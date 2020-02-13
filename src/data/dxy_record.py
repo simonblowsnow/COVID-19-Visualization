@@ -74,7 +74,7 @@ def request_province_data():
     idx = 0
     for p in SP:
         idx += 1
-        if idx <= 23: continue
+#         if idx <= 23: continue
         purl = url + parse.quote(names.get(p['name'], p['name']))
         rst = request_url(purl)
         rst = json.loads(rst, encoding = "utf8")
@@ -86,7 +86,7 @@ def request_province_data():
         comands = []
         for line in lines: 
             ks = line.keys()
-            sql = "insert into patients (" + ','.join(ks) + ") values (" + ', '.join(['%s' for k in ks]) + ")"
+            sql = "insert into patients2 (" + ','.join(ks) + ") values (" + ', '.join(['%s' for k in ks]) + ")"
             params = [line[k] for k in ks]
             comands.append([sql, params])
         db.Transaction(comands)

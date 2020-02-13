@@ -103,13 +103,11 @@ let chart = {
 
 function getOption (srcData, mapName, _option) {
     let data = Utils.formatRegion(mapName, srcData);
-    // [sum, max, secondMax]
-    let vs = data.reduce((a, b) => {
-        if (b.value > a[1]) a[1] = b.value;
-        return [a[0] + b.value, a[1], (b.value > a[2] && b.value < a[1]) ? b.value : a[2]];
-    }, [0, 10, 10]);
-    _option.title.text = "全国确诊：" + vs[0] + "，湖北：" + vs[1];
-    secondMaxValues.push(vs[2]);
+    let sum = data.reduce((a, b) => a + b.value, 0);
+    data.sort((a, b) => b.value - a.value);
+    _option.title.text = "共确诊：" + sum;
+    if (data.length > 0) _option.title.subtext = data[0].name + "：" + data[0].value;
+    secondMaxValues.push(data.length < 2 ? 10 : data[1].value);
     _option.series[0]['data'] = data;
     
     if (!chart.useMaxValue) _option['visualMap'] = {
@@ -152,6 +150,7 @@ chart.initData = function (srcData, id, mapName, allTime) {
     option.visualMap.max = maxColorValue;
     
     chart.instance = Utils.drawGraph(_option, id);
+    return chart.instance;
 };
 
 let chartMap = chart;

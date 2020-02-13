@@ -78,12 +78,12 @@ export default {
     data(){
         return{
             sums: [
-                {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 42744, add: "+2484"},
-                {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 21675 , add: "+3536"},
-                {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 1017 , add: "+108"},
-                {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 4202, add: "+716"}
+                {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 59909, add: "+15179"},
+                {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 13485 , add: "+2807"},
+                {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 1368 , add: "+254"},
+                {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 6215, add: "+1473"}
             ],
-            updateTime: '2020.02.11 20:39',
+            updateTime: '2020.02.14 03:00',
             tabs: [
                 { 
                     label: "全国实时疫情", name: 'china', ids: ['ecChina', 'ecBar1'], level: 1, 
@@ -107,7 +107,7 @@ export default {
                 }
             ],
             activeName: 'china',
-            mapHeight: (Utils.getDevice() === 'xs') ? "300px" : "500px",
+            mapHeight: (Utils.getDevice() === 'xs') ? "330px" : "500px",
         }
     },
     mounted () {
@@ -153,16 +153,21 @@ export default {
             let $this = this;
             let [mapName, level, allTime] = [tab.mapName, tab.level, tab.allTime];
             if (!data) data = tab.data;
-            if (tab.isLine) return chartLine.initData(data, tab.ids[0], level);
-
+            if (tab.isLine) {
+                let ec = chartLine.initData(data, tab.ids[0], level);
+                ec.on('click', function (p) {
+                    console.log(p);
+                });
+                return;
+            }
             // 依次画两图
-            chartMap.initData(data, tab.ids[0], mapName, allTime);
-            chartMap.instance.on('click', function (d) {
+            let ec = chartMap.initData(data, tab.ids[0], mapName, allTime);
+            ec.off('click');
+            ec.on('click', function (d) {
                 if (d.seriesType !== 'map') return;
-                if (level++ == 2) return alert(level);
-                
+                // TODO: 判断三级区域
                 let cTab = $this.tabs[2 + allTime]; 
-                cTab.mapName = d.data.code;
+                [cTab.mapName, cTab.data] = [d.data.code, null];
                 $this.activeName = cTab.name;
                 $this.loadMap(cTab);
             })
