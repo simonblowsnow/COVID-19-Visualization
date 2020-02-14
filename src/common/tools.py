@@ -7,7 +7,7 @@ Date:       2020年1月29日
 '''
 import sys
 sys.path.append('..')
-from libs.log import L
+from src.libs.log import L
 from urllib import request, parse
 from http import cookiejar
 # from selenium import webdriver

@@ -88,7 +88,7 @@ def request_province_data():
         comands = []
         for line in lines: 
             ks = line.keys()
-            sql = "insert into patients2 (" + ','.join(ks) + ") values (" + ', '.join(['%s' for k in ks]) + ")"
+            sql = "insert into patients (" + ','.join(ks) + ") values (" + ', '.join(['%s' for k in ks]) + ")"
             params = [line[k] for k in ks]
             comands.append([sql, params])
         db.Transaction(comands)
