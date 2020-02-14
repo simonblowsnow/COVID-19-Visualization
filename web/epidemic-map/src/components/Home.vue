@@ -78,12 +78,12 @@ export default {
     data(){
         return{
             sums: [
-                {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 59909, add: "+15179"},
-                {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 13485 , add: "+2807"},
-                {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 1368 , add: "+254"},
-                {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 6215, add: "+1473"}
+                {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 63951, add: "+19"},
+                {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 10109 , add: "+2450"},
+                {name: 'die', text: '死亡', color: Utils.Colors[2], sum: 1382 , add: "+1"},
+                {name: 'ok', text: '治愈', color: Utils.Colors[3], sum: 7094, add: "+366"}
             ],
-            updateTime: '2020.02.14 03:00',
+            updateTime: '2020.02.15 02:29',
             tabs: [
                 { 
                     label: "全国实时疫情", name: 'china', ids: ['ecChina', 'ecBar1'], level: 1, 
