@@ -4,7 +4,7 @@ import sys
 sys.path.append('..')
 
 from src.libs.database import Database
-from src.data.region import REGION_SHORT, PROVINCE_WITH_COUNTY, PROVINCE_LEVEL_CITY
+from src.data.region import REGION_SHORT, SPECIAL_NAME, PROVINCE_WITH_COUNTY, PROVINCE_LEVEL_CITY
 
 '''
 建立行政区域双向对照表，含别名，见source.REGION_SHORT
@@ -54,7 +54,7 @@ Return: 行政区域代码
 def check_city(name, parent):
     names = REGIONS[parent]['name_code']
     if name in names: return names[name]
-    if (name + "市") in names: return names[name + "市"] 
+    if (name + "市") in names and name not in SPECIAL_NAME: return names[name + "市"] 
     if (name + "地区") in names: return names[name + "地区"]
     if name[-1] == '州' and name[:-1] in names: return names[name[:-1]]
     if len(name) > 2 and name[-3:] == '自治州' and name[:-3] in names: 

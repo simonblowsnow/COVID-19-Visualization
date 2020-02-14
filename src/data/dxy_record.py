@@ -45,8 +45,10 @@ def translate(items, p, lines):
                 cline['region_name'], cline['region_parent'] = ct['cityName'], p['code']
                 cline['data_date'] = line['data_date']
                 cline['region_code'] = ct.get('locationId', 0)
-                if int(cline['region_code']) < 2: 
-                    cline['region_code'] = check_city(ct['cityName'], p['code'])  
+                '''行政编码和级别判断'''
+                if cline['region_code'] not in  REGIONS[p['code']]['children']:
+                    cline['region_code'] = check_city(ct['cityName'], p['code'])
+                    if not cline['region_code']: cline['region_level'] = 3
 
                 lines.append(cline)
         '''End If'''
@@ -81,7 +83,7 @@ def request_province_data():
         data, lines = rst['results'], []
         translate(data, p, lines)
         L.info("Get data count:" + str(len(data)))
-    
+        
         # 存入数据库
         comands = []
         for line in lines: 

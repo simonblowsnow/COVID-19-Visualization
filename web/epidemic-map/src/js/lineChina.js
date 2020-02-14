@@ -163,14 +163,16 @@ let chart = {
 
 function translate (srcData) {
     let rs = {};
-    for (let t in srcData) {
+    let tms = Object.keys(srcData).sort();
+    tms.forEach(t => {
         srcData[t].forEach(d => {
             let code = d[0];
             if (!(code in rs)) rs[code] = {name: d[2], data: []};
             let line = [t, d[1], "", d[3], d[4], d[5], d[6], d[7]];
             rs[code].data.push(line);
         });
-    }
+    });
+    console.log(rs);
     return rs;
 }
 
