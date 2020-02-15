@@ -67,31 +67,66 @@ def add_city_code():
         sql = "update patients set region_code=%s where id=%s"
         comands.append([sql, (code, id_)])
     db.Transaction(comands)
-    
+
+'''
+各地区数据最新时间
+前提：历史数据是准确的，不会在后期有改动
+'''
+def getLatest(db=None):
+    if not db: db = Database()
+    dt = {}
+    sql = '''select region_code, region_name, region_parent, max(data_date) from patients \
+        group by region_code, region_name, region_parent'''
+    for (code, name, parent, tm) in db.select(sql):
+        dt['_'.join([str(code), name, str(parent)])] = tm
+        
+    return dt    
+
+def request_data(url, name):
+    err_count = 0
+    while True:
+        try:
+            rst = request_url(url)
+            rst = json.loads(rst, encoding = "utf8")
+            return rst
+        except:
+            err_count += 1
+            L.info("Error request found when {}, the {} times".format(name, err_count))
+            if err_count > 10: return None
+            time.sleep(3)
+    return None
     
 def request_province_data():
     names = {'香港特别行政区': '香港', '澳门特别行政区': '澳门', '台湾省': '台湾'}
     url = "https://lab.isaaclin.cn/nCoV/api/area?latest=0&province="
     db = Database()
+#     dts = getLatest(db)
     idx = 0
     for p in SP:
         idx += 1
-#         if idx <= 23: continue
+        # if idx <= 23: continue
         purl = url + parse.quote(names.get(p['name'], p['name']))
-        rst = request_url(purl)
-        rst = json.loads(rst, encoding = "utf8")
+        rst = request_data(purl, p['name'])
+        if not rst: continue
+        
         data, lines = rst['results'], []
         translate(data, p, lines)
         L.info("Get data count:" + str(len(data)))
         
-        # 存入数据库
         comands = []
         for line in lines: 
+            print(line)
+            key = '_'.join([line['code'], line['name'], line['parent']])
+            if key in dts:
+                '''TODO: 对比时间'''
+                print(key, dts[key])
+                
             ks = line.keys()
             sql = "insert into patients (" + ','.join(ks) + ") values (" + ', '.join(['%s' for k in ks]) + ")"
             params = [line[k] for k in ks]
             comands.append([sql, params])
-        db.Transaction(comands)
+            
+#         db.Transaction(comands)
         print(idx, p)
         # L.info("{} saved, the index: {}".format(p['name'], idx))
         time.sleep(3)
