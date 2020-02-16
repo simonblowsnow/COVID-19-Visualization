@@ -36,11 +36,14 @@ def test(r):
     if status=='': return ErrorResponseJson("请求的参数有误！")
     return NormalResponseJson(request, {'status': status}) 
 
-@app.route('/getDataChina')
-def get_data_china():
+@app.route('/getDataSummary')
+def get_data_summary():
     R = request.form if request.method=='POST' else request.args
-    type_ = R.get('type', '')
-    data = DC.getDataChina(type_)
+    level = int(R.get('level', 1))
+    code = R.get('name', '86')
+    if code == 'china' or code == '': code = '86'
+    
+    data = DC.get_data_summary(level, code)
     return NormalResponseJson(request, data)
 
 @app.route('/getDataDetails')

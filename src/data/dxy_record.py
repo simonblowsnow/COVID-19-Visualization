@@ -4,7 +4,6 @@ Created on 2020年1月30日
 '''
 
 import sys
-from _datetime import datetime
 sys.path.append('..')
 sys.path.append('../..')
 import json
@@ -18,9 +17,8 @@ from src.data.region_recognition import REGIONS, check_city
 from src.data.region import src_province as SP
 
 
-def get_all_data():
+def test_get_data():
     url = "https://lab.isaaclin.cn/nCoV/api/area?latest=1"
-    url = "https://lab.isaaclin.cn/nCoV/api/area?latest=0&province=" + parse.quote("湖北省") 
     rst = request_url(url)
     rst = json.loads(rst, encoding = "utf8")
     with open("data-all.json", "w", encoding="utf8") as fp:
@@ -96,8 +94,12 @@ def request_data(url, name):
             if err_count > 10: return None
             time.sleep(3)
     return None
-    
-def request_province_data():
+
+'''
+    各省核心数据请求，含港澳台地区
+        逻辑前提：中国数据等于各省数据之和
+'''    
+def request_data_province():
     names = {'香港特别行政区': '香港', '澳门特别行政区': '澳门', '台湾省': '台湾'}
     url = "https://lab.isaaclin.cn/nCoV/api/area?latest=0&province="
     db = Database()
@@ -124,14 +126,21 @@ def request_province_data():
             params = [line[k] for k in ks]
             comands.append([sql, params])
         L.info("New data lines count:" + str(len(comands)))
-        db.Transaction(comands)
-        print(idx, p)
-        # L.info("{} saved, the index: {}".format(p['name'], idx))
+        if len(comands) > 0: db.Transaction(comands)
+        L.info("{}\t {}  finished!".format(idx, p['name']))
         time.sleep(3)
 
-        
+'''暂未使用（本项目当前只关心国内）'''
+def request_data_overall():
+    url = "https://lab.isaaclin.cn/nCoV/api/overall?latest=0"
+    rst = request_data(url, "全国")
+    if not rst: return 
+    data, lines = rst['results'], []
+   
+    
 if __name__ == '__main__':
     pass
-#     get_all_data()
-    request_province_data()
+#     test_get_data()
+    request_data_province()
+#     request_data_overall()
 #     add_city_code()

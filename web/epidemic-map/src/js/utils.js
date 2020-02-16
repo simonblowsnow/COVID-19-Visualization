@@ -75,6 +75,10 @@ Utils.formatRegion = function (mapName, data) {
   }));
 };
 
+Utils.replaceAll = function (str, src, tar) {
+  return str.replace(new RegExp(src, "gm"), tar);  
+}
+
 Utils.registerMap = function (mapName, geoJson) {
   geoJson = JSON.parse(geoJson);
   echarts.registerMap(mapName, geoJson);

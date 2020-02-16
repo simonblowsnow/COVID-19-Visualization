@@ -24,7 +24,7 @@
         1
       </el-header> -->
       <el-main>
-        <Home msg="Welcome to Your Vue.js App"/>
+        <China msg="Welcome to Your Vue.js App"/>
 
       </el-main>
       <!-- <el-footer>
@@ -35,12 +35,13 @@
 </template>
 
 <script>
-import Home from './components/Home.vue'
+// import Home from './components/Home.vue'
+import China from './components/China.vue'
 
 export default {
   name: 'app',
   components: {
-    Home
+    China
   }
 }
 </script>

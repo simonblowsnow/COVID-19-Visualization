@@ -1,26 +1,7 @@
 <template>
   <div class="hello">
-    <div style="text-align: left">
-        <div style="height: 40px; line-height: 40px">
-            <label style="font-weight: 800; font-size: 18px">国内疫情</label>
-            <label style="float: right; color: #4197FD">数据更新时间： {{updateTime}}</label>
-        </div>
-    </div>
-    <!-- 总体数据汇总情况 -->
-    <el-card class="box-card" style="background: #f4f4f5; ">
-        <el-row :gutter="20">
-            <el-col :span="6" v-for="item in sums" :key="item.name">
-                <div class="grid-content ">
-                    <div class="sum_numb" :style="{color: item.color, fontSize: '20px', marginBottom: '8px'}">{{item.sum}}</div>
-                    <div class="sum_numb" style="color: #333333; font-size: 14px">{{item.text}}病例</div>
-                    <div class="sum_numb" style="font-size: 13px; color: #999999; margin-top: 8px">
-                        <label style="font-weight:200">昨日 </label>
-                        <label :style="{color: item.color}">{{item.add}}</label>
-                    </div>
-                </div>
-            </el-col>
-        </el-row>
-    </el-card>
+    <Summary :title="title" :updateTime="updateTime" :sums="sums"></Summary>
+
     <div style="padding-top: 10px">
         <el-tabs v-model="activeName" @tab-click="handleClickTab">
             <!-- 标签页 -->
@@ -64,6 +45,7 @@
 </template>
 
 <script>
+import Summary from './Summary.vue'
 import {Utils} from "../js/utils";
 import {API} from "../js/server";
 import chartMap from "../js/mapChina";
@@ -72,11 +54,13 @@ import chartLine from "../js/lineChina";
 
 export default {
     name: 'Home',
+    components: {Summary},
     props: {
         msg: String
     },
     data(){
         return{
+            title: "国内疫情",
             sums: [
                 {name: 'confirmed', text: '确诊', color: Utils.Colors[0], sum: 63951, add: "+19"},
                 {name: 'suspected', text: '疑似', color: Utils.Colors[1], sum: 10109 , add: "+2450"},

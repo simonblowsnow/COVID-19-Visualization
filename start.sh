@@ -1,3 +1,3 @@
 #!/bin/bash
 export PYTHONPATH=`pwd`
-python src/main.py
+python3 src/main.py
