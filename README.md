@@ -1,9 +1,11 @@
 
-# 2019新型冠状病毒疫情数据获取、清洗、可视化、分析
+# 2019新型冠状病毒疫情数据可视化、疫情历史数据分析、数据更新、数据清洗行政区域代码标准化
 
 针对此次武汉新型冠状病毒(2019-nCov)数据变化情况，做可视分析(Visualization Analysis)，旨在呈现并还原疫情发展情况。
 
-数据支持： [BlankerL/DXY-2019-nCoV-Crawler](https://github.com/BlankerL/DXY-2019-nCoV-Crawler)  特别鸣谢！
+数据支持： [BlankerL/DXY-2019-nCoV-Crawler](https://github.com/BlankerL/DXY-2019-nCoV-Crawler)  
+
+全栈项目：前后分离，具体代码路径见结尾的[项目结构]
 
 ## 可视化效果
 
@@ -19,7 +21,9 @@
 
 3. 全国省市混合热力图数据呈现，及时间序列变化趋势。(★★★★)
 
-4. 交互式数据分析
+4. 交互式数据分析，同时支持各级地区、时间维度组合分析。
+
+5.兼容移动端设备
 
 专业可视分析技术与思维倾情打造，敬请期待！
 
@@ -31,7 +35,9 @@
 
 3.完成时间轴动画播放
 
-TODO：开发各曲线图，开发全国省市混合地图数据展示等
+4.完成曲线图
+
+TODO：优化交互，全国和省级独立页面，曲线分析下钻市级，开发全国省市混合地图数据发展趋势展示等
 
 
 ## 初步效果
@@ -74,7 +80,14 @@ TODO：开发各曲线图，开发全国省市混合地图数据展示等
 		./start.sh - On Linux
 		
 
-3.数据库文件：src/db/epidemic.sql
+3.数据库：（Mysql）
+	
+	文件：src/db/epidemic.sql
+	
+	新建数据库epidemic，将该文件导入MySQL即可。（命令行方式：use epidemic; source /root/epidemic.sql;）
+	
+	数据库账号密码在src/config.py中配置
+	
 
 4.数据：
 	
