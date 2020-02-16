@@ -4,7 +4,6 @@ import time
 import datetime
 import random
 from src.libs.platform_version import IS_PYTHON2
-import types
 # import md5
 
 
@@ -49,7 +48,7 @@ def S2T(s):
 
 '''字符串转时间'''
 def S2DT(s):
-    return datetime.datetime.strptime(s, "%Y-%m-%d %H:%M:%S") 
+    return datetime.datetime.strptime(s[:19], "%Y-%m-%d %H:%M:%S") 
 
 '''字符串转datetime时间'''
 def S2D(s = ''):
@@ -106,6 +105,11 @@ def TimeOffsetS(n = 60, tm = ''):
     st = (tm + datetime.timedelta(seconds=n)).strftime(sf)
     return LONG(time.mktime(time.strptime(st, sf)) * 1000)
     
+def date_less(t1, t2):
+    if not t1 or not t2: return False
+    if type(t1) != datetime.datetime: t1 = S2DT(t1)
+    if type(t2) != datetime.datetime: t2 = S2DT(t2)
+    return t1 < t2 
 
 def DiffDay(s1, s2):
     t1 = datetime.datetime.strptime(s1.split(" ")[0], "%Y-%m-%d")
@@ -198,3 +202,6 @@ def GetMd5(st):
     
 if __name__ == '__main__':
     pass
+#     print(S2DT("2020-02-05 11:23:09.23"))
+
+

@@ -4,6 +4,7 @@ Created on 2020年1月30日
 '''
 
 import sys
+from _datetime import datetime
 sys.path.append('..')
 sys.path.append('../..')
 import json
@@ -11,7 +12,7 @@ import time
 from src.libs.log import L
 from urllib import parse
 from src.common.tools import request_url
-from src.libs.utils import TS2S
+from src.libs.utils import TS2S, date_less
 from src.libs.database import Database
 from src.data.region_recognition import REGIONS, check_city
 from src.data.region import src_province as SP
@@ -38,7 +39,7 @@ def translate(items, p, lines):
         line['sum_type'], line['region_level'], line['region_parent'] = 1, 1, 86
         lines.append(line)
         
-        if 'cities' in item:
+        if item.get('cities', None):
             for ct in item['cities']:
                 cline = dict((keys[k], ct.get(k, "")) for k in ct if k in keys)
                 cline['sum_type'], cline['region_level'] = 1, 2
@@ -100,7 +101,7 @@ def request_province_data():
     names = {'香港特别行政区': '香港', '澳门特别行政区': '澳门', '台湾省': '台湾'}
     url = "https://lab.isaaclin.cn/nCoV/api/area?latest=0&province="
     db = Database()
-#     dts = getLatest(db)
+    history = getLatest(db)
     idx = 0
     for p in SP:
         idx += 1
@@ -108,25 +109,22 @@ def request_province_data():
         purl = url + parse.quote(names.get(p['name'], p['name']))
         rst = request_data(purl, p['name'])
         if not rst: continue
-        
         data, lines = rst['results'], []
         translate(data, p, lines)
-        L.info("Get data count:" + str(len(data)))
+        L.info("Get data collects count:" + str(len(data)))
         
         comands = []
-        for line in lines: 
-            print(line)
-            key = '_'.join([line['code'], line['name'], line['parent']])
-            if key in dts:
-                '''TODO: 对比时间'''
-                print(key, dts[key])
-                
+        for line in lines:
+            '''排除已有历史数据''' 
+            key = '_'.join([str(line['region_code']), line['region_name'], str(line['region_parent'])])
+            if key in history and not date_less(history[key], line['data_date']): continue 
+            
             ks = line.keys()
             sql = "insert into patients (" + ','.join(ks) + ") values (" + ', '.join(['%s' for k in ks]) + ")"
             params = [line[k] for k in ks]
             comands.append([sql, params])
-            
-#         db.Transaction(comands)
+        L.info("New data lines count:" + str(len(comands)))
+        db.Transaction(comands)
         print(idx, p)
         # L.info("{} saved, the index: {}".format(p['name'], idx))
         time.sleep(3)
