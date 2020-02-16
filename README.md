@@ -93,8 +93,9 @@ TODO：优化交互，全国和省级独立页面，曲线分析下钻市级，�
 	
 	使用API：https://lab.isaaclin.cn/nCoV
 	
-	数据更新：src/data/dxy_record.py
+	数据更新：src/data/dxy_record.py （手动）
 	
 	数据清洗：地区标准化 - region_recognition.py
 	
-	TODO: 数据定时增量更新
+	自动更新任务：startData.bat 或 ./startData.sh
+	
