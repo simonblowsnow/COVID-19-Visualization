@@ -1,0 +1,852 @@
+[
+  {
+    "name": "海南省",
+    "province": "海南省",
+    "center": {
+      "type": "Point",
+      "coordinates": [
+        110.348781,
+        20.018639
+      ]
+    },
+    "updated_at": "2020/02/16 21:42:58",
+    "pois": [
+      {
+        "name": "琼山区大园路向阳里一巷16号",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35727408808062,
+            19.99334945761354
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35727408808062,
+            19.99334945761354
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/Dc6hqrFt1WTJEnxM4XHtBw",
+        "date": ""
+      },
+      {
+        "name": "琼山区振兴路东盛名苑A栋",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35355398670028,
+            19.99585918625783
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35355398670028,
+            19.99585918625783
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/Dc6hqrFt1WTJEnxM4XHtBw",
+        "date": ""
+      },
+      {
+        "name": "琼山区凤翔东路凤翔桥286号",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.36347898791881,
+            19.993649538117918
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.36347898791881,
+            19.993649538117918
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/uKbJJ6kdTpEF5z9M1ospXA",
+        "date": ""
+      },
+      {
+        "name": "美兰区蓝天街道白坡里175号",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.34266432608777,
+            20.028339981416394
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.34266432608777,
+            20.028339981416394
+          ]
+        },
+        "city": "海口市",
+        "county": "美兰区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/Dc6hqrFt1WTJEnxM4XHtBw",
+        "date": ""
+      },
+      {
+        "name": "龙华区大同二里建材工业总公司宿舍",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.34430601844805,
+            20.039070064736524
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.34430601844805,
+            20.039070064736524
+          ]
+        },
+        "city": "海口市",
+        "county": "龙华区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/uKbJJ6kdTpEF5z9M1ospXA",
+        "date": ""
+      },
+      {
+        "name": "龙华区金宇街道金地路金湖雅居B栋",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.32951680353509,
+            20.010608303493314
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.32951680353509,
+            20.010608303493314
+          ]
+        },
+        "city": "海口市",
+        "county": "龙华区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/uKbJJ6kdTpEF5z9M1ospXA",
+        "date": ""
+      },
+      {
+        "name": "琼山区大园路振兴里",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35565653657089,
+            19.99558616558371
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35565653657089,
+            19.99558616558371
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "琼山区新大洲大道321号2楼",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.38153625605841,
+            19.994125249449084
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.38153625605841,
+            19.994125249449084
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/BXf7Sk-2g3afjPmZceQQtw",
+        "date": ""
+      },
+      {
+        "name": "龙华区城西镇椰海昌茂城邦小区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.34570145780908,
+            19.9860792399701
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.34570145780908,
+            19.9860792399701
+          ]
+        },
+        "city": "海口市",
+        "county": "龙华区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/SbVnIc-oouWNNn9p_Dygzg",
+        "date": ""
+      },
+      {
+        "name": "天涯区椰风巷",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.51523090343338,
+            18.24545479536179
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.51523090343338,
+            18.24545479536179
+          ]
+        },
+        "city": "三亚市",
+        "county": "天涯区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "天涯区金中海蓝钻小区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.4517778518143,
+            18.29547745200662
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.4517778518143,
+            18.29547745200662
+          ]
+        },
+        "city": "三亚市",
+        "county": "天涯区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "崖州区南海嘉园",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.18238509427287,
+            18.35689822296952
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.18238509427287,
+            18.35689822296952
+          ]
+        },
+        "city": "三亚市",
+        "county": "崖州区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "乐东黎族自治县千家镇福报农场",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.12147013451306,
+            18.521319533493653
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.12147013451306,
+            18.521319533493653
+          ]
+        },
+        "city": "儋州市",
+        "county": "乐东黎族自治县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "昌江黎族自治县福源小区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.06855580699272,
+            19.27990145054698
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.06855580699272,
+            19.27990145054698
+          ]
+        },
+        "city": "儋州市",
+        "county": "昌江黎族自治县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "琼山区凤翔街道",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35820360484246,
+            19.993217406811212
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35820360484246,
+            19.993217406811212
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/XZ_P8eHkKMQauWnyWvMjNA",
+        "date": ""
+      },
+      {
+        "name": "琼山区大园里147号",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35688965338035,
+            19.996725430312278
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35688965338035,
+            19.996725430312278
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/XZ_P8eHkKMQauWnyWvMjNA",
+        "date": ""
+      },
+      {
+        "name": "琼山区石塔村",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35815897405088,
+            19.976899753051267
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35815897405088,
+            19.976899753051267
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/XZ_P8eHkKMQauWnyWvMjNA",
+        "date": ""
+      },
+      {
+        "name": "美兰区大园村",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.6845421518822,
+            19.814885409494952
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.6845421518822,
+            19.814885409494952
+          ]
+        },
+        "city": "海口市",
+        "county": "美兰区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "秀英区凯威大酒店",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.28809891448635,
+            20.02361025507252
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.28809891448635,
+            20.02361025507252
+          ]
+        },
+        "city": "海口市",
+        "county": "秀英区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "吉阳区南新农场",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.531321751526,
+            18.30201335755838
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.531321751526,
+            18.30201335755838
+          ]
+        },
+        "city": "三亚市",
+        "county": "吉阳区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "海棠区海棠湾镇亚特兰蒂斯酒店",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.75194896470296,
+            18.36284534316112
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.75194896470296,
+            18.36284534316112
+          ]
+        },
+        "city": "三亚市",
+        "county": "海棠区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "神州半岛君临海小区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35640352714269,
+            18.68104077360389
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35640352714269,
+            18.68104077360389
+          ]
+        },
+        "city": "万宁市",
+        "county": "万宁市",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "涛升国际小区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            108.68915300753424,
+            19.101550606254232
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            108.68915300753424,
+            19.101550606254232
+          ]
+        },
+        "city": "东方市",
+        "county": "东方市",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "千家镇福报农场",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.12147013451306,
+            18.521319533493653
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.12147013451306,
+            18.521319533493653
+          ]
+        },
+        "city": "乐东黎族自治县",
+        "county": "乐东黎族自治县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "定城镇天籁谷小区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.36157450731888,
+            19.68463711122443
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.36157450731888,
+            19.68463711122443
+          ]
+        },
+        "city": "定安县",
+        "county": "定安县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "福源小区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.06855580699272,
+            19.27990145054698
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.06855580699272,
+            19.27990145054698
+          ]
+        },
+        "city": "昌江黎族自治县",
+        "county": "昌江黎族自治县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/ypAbJeBy8RFrqq0JFshDJw",
+        "date": ""
+      },
+      {
+        "name": "阳江农场",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            0,
+            0
+          ]
+        },
+        "city": "琼中苗族黎族自治县",
+        "county": "琼中苗族黎族自治县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "嘉积镇天来泉二区",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.43201249318027,
+            19.218472170571474
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.43201249318027,
+            19.218472170571474
+          ]
+        },
+        "city": "琼海市",
+        "county": "琼海市",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "碧桂园珊瑚宫殿",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.84817939868628,
+            18.390114680556774
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.84817939868628,
+            18.390114680556774
+          ]
+        },
+        "city": "陵水黎族自治县",
+        "county": "陵水黎族自治县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/XZ_P8eHkKMQauWnyWvMjNA",
+        "date": ""
+      },
+      {
+        "name": "阳江农场",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            109.76442790227551,
+            19.302933007762025
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            109.76442790227551,
+            19.302933007762025
+          ]
+        },
+        "city": "琼中黎族苗族自治县",
+        "county": "琼中黎族苗族自治县",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/r-JGIW4tVn2148cAXBszzA",
+        "date": ""
+      },
+      {
+        "name": "琼山区凤翔东路江畔人家小区1-9A栋",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.38493908011341,
+            20.00147066450971
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.38493908011341,
+            20.00147066450971
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      },
+      {
+        "name": "琼山区凤翔街道凤翔东路江畔人家小区1-9A栋",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.38147482682862,
+            19.99587395334312
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.38147482682862,
+            19.99587395334312
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      },
+      {
+        "name": "琼山区大园路147号",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35886380906695,
+            20.00099301578912
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35886380906695,
+            20.00099301578912
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      },
+      {
+        "name": "琼山区大园路振兴里7号",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.35565653657089,
+            19.99558616558371
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.35565653657089,
+            19.99558616558371
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      },
+      {
+        "name": "红星路",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.37263557697217,
+            19.981544991363627
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.37263557697217,
+            19.981544991363627
+          ]
+        },
+        "city": "海口市",
+        "county": "琼山区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      },
+      {
+        "name": "龙华区城西镇中沙路鸿侨公寓",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.3219131212578,
+            19.99680562590795
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.3219131212578,
+            19.99680562590795
+          ]
+        },
+        "city": "海口市",
+        "county": "龙华区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      },
+      {
+        "name": "龙华区城西镇昌茂城邦10栋",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.34570145780908,
+            19.9860792399701
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.34570145780908,
+            19.9860792399701
+          ]
+        },
+        "city": "海口市",
+        "county": "龙华区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      },
+      {
+        "name": "秀英区大华锦绣海岸二期",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            110.1839335455975,
+            20.056683631960066
+          ]
+        },
+        "point": {
+          "type": "Point",
+          "coordinates": [
+            110.1839335455975,
+            20.056683631960066
+          ]
+        },
+        "city": "海口市",
+        "county": "秀英区",
+        "source": "海口发布",
+        "sourceurl": "https://mp.weixin.qq.com/s/4y-Low_f0iviwQ_l4jvtDw",
+        "date": ""
+      }
+    ]
+  }
+]

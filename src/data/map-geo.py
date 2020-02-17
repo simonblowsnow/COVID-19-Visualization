@@ -10,10 +10,8 @@ import os
 import json
 from src.libs.database import Database
 
-FILE_PATH = os.path.dirname(__file__) + "\\"
+FILE_PATH = os.path.dirname(__file__) + "/"
 
-def get_province():
-    pass
 
 def load_json(code):
     lines = []
@@ -28,6 +26,7 @@ def create_config():
     sql = "select name, code from region where level=1"
     for (name, code) in db.select(sql):
         print({'name': name, 'code': code, 'url': ''}, ", ")
+        
         
 def import_region():
     db = Database()
