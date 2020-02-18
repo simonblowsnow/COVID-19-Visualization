@@ -15,6 +15,7 @@ from src.libs.redisEx2 import MyRedis as rs
 from src.common.response import NormalResponseJson, NormalResponse, ErrorResponse, ErrorResponseJson, ErrorResponseData
 
 import src.data_china as DC
+import src.data_pos as DP
 
 app = Flask(__name__, static_url_path='')
 CORS(app, supports_credentials=True)
@@ -64,6 +65,15 @@ def get_time_data():
     
     data = DC.get_time_data(level, int(code))
     return NormalResponseJson(request, data)
+
+@app.route('/getDataPos')
+def get_data_pos():
+    R = request.form if request.method=='POST' else request.args
+    code = R.get('code', '420000')
+    
+    data = DP.get_region_data(int(code))
+    return NormalResponseJson(request, data)
+
 
 @app.route('/getMap')
 def get_map():

@@ -3,7 +3,6 @@
 Created on 2020年2月4日
 '''
 import sys
-from audioop import reverse
 sys.path.append('..')
 
 from src.libs.database import Database

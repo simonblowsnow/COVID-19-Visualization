@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <Summary :title="title" :updateTime="updateTime" :sums="sums"></Summary>
-
+    
     <div style="padding-top: 10px">
         <el-tabs v-model="activeName" @tab-click="handleClickTab">
             <!-- 标签页 -->

@@ -5,7 +5,8 @@ const API = {
   "GetDataDetails": "getDataDetails",
   "GetTimeData": "getTimeData",
   "GetDataChina": "getDataChina", // 似乎没用
-  "GetDataSummary": "getDataSummary"
+  "GetDataSummary": "getDataSummary",
+  "GetDataPos": "getDataPos"
 };
 
 export {API};

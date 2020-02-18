@@ -3,14 +3,14 @@
 
 针对此次武汉新型冠状病毒(COVID-19，原2019-nCov)数据变化情况，做可视分析(Coronavirus Visualization Analysis)，旨在呈现并还原疫情发展情况。
 
-数据支持： [BlankerL/DXY-2019-nCoV-Crawler](https://github.com/BlankerL/DXY-2019-nCoV-Crawler)  
+[新冠肺炎疫情 · 数据分析系统](http://106.54.48.46:8002)  
+	WuHan COVID-19 Data Visualization Analysis System		http://106.54.48.46:8002
 
 全栈项目：前后分离，具体代码路径见结尾的[项目结构]
 
 ## 可视化效果
 
-[新冠肺炎疫情 · 数据分析系统](http://106.54.48.46:8002)  
-	WuHan COVID-19 Data Visualization Analysis System		http://106.54.48.46:8002
+[http://106.54.48.46:8002](http://106.54.48.46:8002)
 
 
 ## 项目特点
@@ -45,6 +45,10 @@ TODO：增加疫情小区在线优美地图页面; 优化交互，全国和省�
 
 
 ## 初步效果
+
+疫情区域3D效果
+
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo.png)
 
 时间序列曲线
 

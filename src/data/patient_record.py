@@ -13,7 +13,6 @@ from src.libs.database import Database
 from src.data.region_recognition import REGIONS, check_city
 from src.data.region import PROVINCE
 
-
 class Info():
     def __init__(self, name, code, p_name, p_code, county="", source="", source_url=""):
         self.name, self.code, self.p_name, self.p_code = name, code, p_name, p_code

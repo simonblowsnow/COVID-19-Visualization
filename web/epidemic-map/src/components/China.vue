@@ -1,8 +1,10 @@
 <template>
   <div class="hello">
-    
-    <Common :title="loader.title" :updateTime="loader.updateTime" :sums="loader.sums" :tabs="tabs" :activeName_="loader.activeName"
+    <el-main>
+        <Common :title="loader.title" :updateTime="loader.updateTime" :sums="loader.sums" :tabs="tabs" :activeName_="loader.activeName"
         @handleClickTab="loader.handleClickTab($event)" />
+    
+    </el-main>
     
     
   </div>
