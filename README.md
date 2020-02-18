@@ -48,7 +48,7 @@ TODO：增加疫情小区在线优美地图页面; 优化交互，全国和省�
 
 疫情区域3D效果
 
-![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/demo.png)
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/map.png)
 
 时间序列曲线
 
