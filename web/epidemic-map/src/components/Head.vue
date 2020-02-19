@@ -11,8 +11,8 @@
         </span>
       </div>
       <div>
-        <div style="font-size: 26px">新冠肺炎疫情<label style="font-size: 24px"> · 数据分析系统</label></div>
-        <div style="font-size: 22px; margin-top: 5px; color: #ddd; font-family: 'Times New Roman', Times, serif">
+        <div style="font-size: 24px">新冠肺炎疫情<label style="font-size: 22px"> · 数据分析系统</label></div>
+        <div style="font-size: 20px; margin-top: 5px; color: #ddd; font-family: 'Times New Roman', Times, serif">
           WuHan COVID-19 Data Visualization Analysis System
         </div>
         <!-- <div style="font-size: 14px; color: #ddd">—— 开发中，敬请期待!</div> -->

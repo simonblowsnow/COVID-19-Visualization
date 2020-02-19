@@ -40,7 +40,7 @@ export default {
                 if (code in Provinces) {
                     // $this.map.setCenter(Provinces[code]);
                     
-                    $this.map.setCenter([103.923941, 30.79559]);
+                    // $this.map.setCenter([103.923941, 30.79559]);
                     // $this.map.setZoom(16);
                 }
                 // $this.loadGeometry(features);

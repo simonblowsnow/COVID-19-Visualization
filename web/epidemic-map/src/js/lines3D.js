@@ -24,13 +24,15 @@ function loadLines3D (map, data) {
         data.features.forEach(function (g) {
             // if (g.geometry.type == "MultiPolygon") return;
             // console.log(g.properties.name);
-            let labelMaterial = getMaterial(50, g.properties.name);
+            let name = g.properties.name;
+            if (name.length < 5) name += "   "
+            let labelMaterial = getMaterial(50, name);
             let label = new Circle(g.properties.cp, {
-                len: g.properties.name.length
+                len: name.length
             }, labelMaterial, threeLayer);
             labelMeshes.push(label);
         });
-        // threeLayer.addMesh(labelMeshes);
+        threeLayer.addMesh(labelMeshes);
         addLines(data);
     };
     threeLayer.addTo(map);
@@ -109,10 +111,10 @@ function addExtrudeLine(lineStrings) {
 }
 
 function getMaterial(fontSize, text) {
-    var SIZE = 128;
+    var SIZE = 400;
     var canvas = document.createElement('canvas');
     canvas.width = SIZE;
-    canvas.height = 10 * text.length;
+    canvas.height = 16 * text.length;
     var ctx = canvas.getContext('2d');
     var gradient = ctx.createLinearGradient(0, 0, SIZE, 0);
     // gradient.addColorStop("0", "#ffffff");
@@ -124,18 +126,18 @@ function getMaterial(fontSize, text) {
     ctx.strokeStyle = gradient;
     // ctx.lineWidth = 20;
     ctx.font = `${fontSize}px Aria`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
     ctx.fillStyle = "#f00";
-    ctx.fillText(text, text.length / 2, 30);
-    // ctx.rect(0, 0, SIZE * 2, SIZE * 2);
+    ctx.fillText(text, 5, 10);
+    // ctx.rect(0, 0, SIZE * 3, SIZE);
     var texture = new THREE.Texture(canvas);
     texture.needsUpdate = true; //使用贴图时进行更新
 
     var material = new THREE.MeshPhongMaterial({
         map: texture,
-        // side: THREE.DoubleSide,
-        transparent: true
+        side: THREE.FrontSide,
+        transparent: false
     });
     return material;
 }
@@ -156,7 +158,7 @@ class Circle extends BaseObject {
         // debugger
         //generate geometry
         // const r = layer.distanceToVector3(radius, radius).x
-        const geometry = new THREE.BoxBufferGeometry(options.len * 2, 8);
+        const geometry = new THREE.PlaneGeometry(options.len * 1.5, 4.5);
 
         //Initialize internal object3d
         // https://github.com/maptalks/maptalks.three/blob/1e45f5238f500225ada1deb09b8bab18c1b52cf2/src/BaseObject.js#L140
