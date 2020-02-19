@@ -1,13 +1,22 @@
 
+// 注：在本项目中没什么用，只用高德。因为轮廓坐标为高德坐标系，懒得写自动转换程序。
+
 // 请自行申请Key
 let key = "pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXFhYTA2bTMyeW44ZG0ybXBkMHkifQ.gUGbDOPUN1v1fTs5SeOR4A";
 let MAPS = {
     "Gaode": {
       name: '高德',
-      urlTemplate: 'http://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7',
+      urlTemplate: 'http://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=8',
       subdomains: ['1', '2', '3', '4'],
       attribution: '&copy; <a target="_blank" href="http://ditu.amap.com">高德地图</a>',
-      weixing: 'http://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=6'
+      weixing: 'http://wprd0{s}.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scl=1&style=7'
+    },
+    "Baidu": {
+      name: '百度',
+      spatialReference: {projection : 'baidu'},
+      urlTemplate: 'http://online{s}.map.bdimg.com/onlinelabel/?qt=tile&x={x}&y={y}&z={z}&styles=pl&scaler=1&p=1',
+      subdomains: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      attribution: '&copy; <a target="_blank" href="http://map.baidu.com">Baidu</a>'
     },
     "OpenStreetMap": {
       name: 'OpenStreet',
@@ -32,5 +41,5 @@ let MAPS = {
     if (MAPS[k].weixing) MapList.push({label: MAPS[k].name + "卫星", value: k + "_1"});
   });
 
-  // pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejh2N21nMzAxMmQzMnA5emRyN2lucW0ifQ.jSE-g2vsn48Ry928pqylcg
+
   export {MAPS, MapList};

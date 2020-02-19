@@ -3,16 +3,16 @@ import * as THREE from "three";
 import { ThreeLayer, BaseObject } from 'maptalks.three';
 import { InitBloom } from "./bloom";
 
-let threeLayer = new ThreeLayer('t', {
-    forceRenderOnMoving: true,
-    forceRenderOnRotating: true
-    // animation: true
-});
 
+let threeLayer;
 
 function loadLines3D (map, data) {
     var labelMeshes = [];
-    
+    if (map.getLayer('lines')) threeLayer.remove();
+    threeLayer = new ThreeLayer('lines', {
+        forceRenderOnMoving: true, forceRenderOnRotating: true
+    });
+
     threeLayer.prepareToDraw = function (gl, scene) {
         var light = new THREE.DirectionalLight(0xffffff);
         light.position.set(0, -10, 10).normalize();
@@ -23,7 +23,6 @@ function loadLines3D (map, data) {
 
         data.features.forEach(function (g) {
             // if (g.geometry.type == "MultiPolygon") return;
-            // console.log(g.properties.name);
             let name = g.properties.name;
             if (name.length < 5) name += "   "
             let labelMaterial = getMaterial(50, name);

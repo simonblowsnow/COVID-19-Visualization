@@ -14,10 +14,11 @@ Utils.setCookie = function (name, value, hour) {
   document.cookie = name + '=' + escape(value) + ';expires=' + exp.toUTCString();
 };
 
-Utils.getCookie = function (name) {
+Utils.getCookie = function (name, dftValue) {
+  if (dftValue === undefined) dftValue = null;
   let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
   let arr = document.cookie.match(reg);
-  return (arr) ? unescape(arr[2]) : null;
+  return (arr) ? unescape(arr[2]) : dftValue;
 };
 
 Utils.postData = function (key, data, _callbackS, _callbackE, config) {

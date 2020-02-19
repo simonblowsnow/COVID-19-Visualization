@@ -10,7 +10,7 @@
 
 ## 可视化效果
 
-[http://106.54.48.46:8002](http://106.54.48.46:8002)
+[http://ncov.myvis.cn:8002](http://ncov.myvis.cn:8002)
 
 
 ## 项目特点
@@ -23,7 +23,7 @@
 
 4. 交互式数据分析，同时支持各级地区、时间维度组合分析。
 
-5. 疫情周边确诊患者小区地理位置。
+5. 疫情周边确诊患者小区地理位置3D可视化。
 
 6. 兼容移动端设备
 
@@ -41,18 +41,18 @@
 
 5. 完成疫情小区数据解析入库，及数据清洗
 
-TODO：增加疫情小区在线优美地图页面; 优化交互，全国和省级独立页面，曲线分析下钻市级，开发全国省市混合地图数据发展趋势展示等
+6. 完成ThreeJs场景流动线条，完成3种风格地图可视化
 
 
 ## 初步效果
 
-疫情区域3D效果
+疫情小区地图
 
-![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/map.png)
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/map1.png)
 
 时间序列曲线
 
-![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/line.png)
+![Demo Image](https://github.com/simonblowsnow/2019-ncov-vis/blob/master/web/epidemic-map/image/line2.png)
 
 时间序列播放
 

@@ -5,7 +5,9 @@
         @handleClickTab="loader.handleClickTab($event)" />
     
     </el-main>
-    
+    <div style="position: fixed; right: 10px; top: 90px; font-weight: 400; font-family: 宋体 " class="blink">
+        <router-link to="/map">疫情小区</router-link>
+    </div>
     
   </div>
 </template>
@@ -95,5 +97,38 @@ a {
       margin-bottom: 20px;
   }
 
+/* 定义keyframe动画，命名为blink */
+@keyframes blink{
+  0%{opacity: 1;}
+  100%{opacity: 0;} 
+}
+/* 添加兼容性前缀 */
+@-webkit-keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@-moz-keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+@-ms-keyframes blink {
+    0% {opacity: 1; } 
+    100% { opacity: 0;}
+}
+@-o-keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+/* 定义blink类*/
+.blink{
+    color: #dd4814 ;
+    animation: blink 1s linear infinite;  
+    /* 其它浏览器兼容性前缀 */
+    -webkit-animation: blink 1s linear infinite;
+    -moz-animation: blink 1s linear infinite;
+    -ms-animation: blink 1s linear infinite;
+    -o-animation: blink 1s linear infinite;
+}
+.blink>a{color: #dd4814!important}
 
 </style>
