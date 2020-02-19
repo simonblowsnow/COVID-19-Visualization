@@ -23,7 +23,7 @@ let Loader = {
             let _sums = rst.data.summary;
             for (let i = 0; i < 4; i++) {
                 if (_sums[0][i]) Vue.set($this.sums[i], 'sum', _sums[0][i]);
-                if (_sums[1][i])Vue.set($this.sums[i], 'add', _sums[1][i]);
+                if (_sums[1][i])Vue.set($this.sums[i], 'add', "+" + _sums[1][i]);
             }
         });
     },

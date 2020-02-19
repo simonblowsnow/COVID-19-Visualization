@@ -1,7 +1,7 @@
 
 # 2019新型冠状病毒疫情数据可视化、疫情历史数据分析、数据更新、数据清洗行政区域代码标准化，疫情小区地图数据呈现
 
-针对此次武汉新型冠状病毒(COVID-19，原2019-nCov)数据变化情况，做可视分析(Coronavirus Visualization Analysis)，旨在呈现并还原疫情发展情况。
+针对此次武汉新型冠状病毒(COVID-19，原2019-nCov)数据变化情况，做可视分析(Coronavirus Visualization Analysis)，旨在表现可视化的魅力！
 
 [新冠肺炎疫情 · 数据分析系统](http://106.54.48.46:8002)  
 	WuHan COVID-19 Data Visualization Analysis System		http://106.54.48.46:8002
@@ -27,7 +27,6 @@
 
 6. 兼容移动端设备
 
-专业可视分析技术与思维倾情打造，敬请期待！
 
 ## 当前进度
 
