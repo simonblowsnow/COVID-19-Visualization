@@ -13,23 +13,12 @@ class Mysql():
     HOST = "106.54.48.46"
     PASSWORD = ""
     
-'''未使用'''    
-class Redis():
-    HOST = "127.0.0.1"
-    HOST = "localhost"
-    PORT = 6379
-    DB_NAME = "3"
-    USER_NAME = "root"
-    PASSWORD = ""
-
 class Web():        
     PORT = 9400
     
     
 class Config():
     mysql = Mysql
-    redis = Redis
     web = Web
-    '''暂未使用'''
-    js_path = "C:/opt/IDE/phantomjs-2.1.1-windows/bin/phantomjs.exe"
+    
     

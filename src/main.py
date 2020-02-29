@@ -11,7 +11,6 @@ from flask_cors import CORS
 from src.config import Config as C
 # from src.common.key import KEY
 from src.libs.log import L
-from src.libs.redisEx2 import MyRedis as rs
 from src.common.response import NormalResponseJson, NormalResponse, ErrorResponse, ErrorResponseJson, ErrorResponseData
 
 import src.data_china as DC
